@@ -1,0 +1,53 @@
+/* @group ntz css reset */
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
+body {line-height: 1}
+ol, ul {list-style:none}
+blockquote, q {quotes:none}
+blockquote:before, blockquote:after,
+q:before, q:after {content:'';content:none}
+
+strong, b {font-weight:700}
+em, i {font-style:italic}
+
+ins {text-decoration:none}
+del {text-decoration:line-through}
+table {border-collapse:collapse;border-spacing:0}
+caption, th, td {text-align:left;font-weight:100}
+
+textarea {overflow:auto}
+button {cursor:pointer;padding:0}
+*:first-child+html button {width:1;overflow:visible}
+* html button {width:1;overflow:visible}
+button::-moz-focus-inner { border: 0; }
+
+input[type="checkbox"], input[type="radio"], input.radio, input.checkbox {vertical-align:text-top;width:13px;height:13px;padding:0;margin:0;position:relative;overflow:hidden;top:2px}
+
+a {text-decoration:none; color:#4f81bd}
+a:hover {text-decoration:underline}
+
+:focus {outline:0}
+a:focus {outline:1px dotted #999}
+
+.clearfix:after {content:".";display:block;height:0;clear:both;visibility:hidden}
+.clearfix {display:inline-block}
+/* Hide from IE Mac \*/
+.clearfix {display:block}
+/* End hide from IE Mac */
+* html .clearfix {height:1px}
+
+.leftalign,.alignleft{float:left}
+.rightalign,.alignright{float:right}
+
+/* @end */
+
+body {
+	
+}
