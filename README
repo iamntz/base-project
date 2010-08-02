@@ -1,0 +1,17 @@
+I always hated to create few folders and few files every time I start a project.
+
+Some time ago I created a archive that contain few files and some basic folder structure but I quickly find out that is a odd method and too many steps where involved in updating.
+
+And because I just discovered Git, I also just discovered bash prompt. So I created a quick bash script with all the stuff I need.
+
+You just need to copy `base_project` and `i.bash` on your home directory. (hint: make a hardlink to i.bash to keep it updated ;) 
+
+Now, every time I open console I just type:
+
+~/i.bash
+
+All files are created.
+
+Bonus:
+1) the script ask me if I want to use jQuery
+2) the script also ask me if I want to init a git repo and if I want to commit
