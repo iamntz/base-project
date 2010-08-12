@@ -6,7 +6,12 @@
 		<title>template file</title>
 		<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" />
 	</head>
-	<body>
+<!--[if lt IE 7]>  <body class="ie ie6 lte9 lte8 lte7"> <![endif]-->
+<!--[if IE 7]>     <body class="ie ie7 lte9 lte8 lte7"> <![endif]-->
+<!--[if IE 8]>     <body class="ie ie8 lte9 lte8"> <![endif]-->
+<!--[if IE 9]>     <body class="ie ie9 lte9"> <![endif]-->
+<!--[if gt IE 9]>  <body> <![endif]-->
+<!--[if !IE]><!--> <body> <!--<![endif]-->
 		<div id="wrap">
 			
 		</div><!--/wrap-->
