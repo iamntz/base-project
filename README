@@ -14,7 +14,7 @@ ln ~/baseproject/i.bash ~/i.bash
 That's all! All you have to do now is to right click a directory (on windows, I really don't know how it works on other platforms!) 
 and chose „Bash Prompt Here*” then type: ~/i.bash .
 
-* if you don't have „bash prompt here”, install chere in your cygwin distribution then type 
+* if you don't have „bash prompt here”, install chere in your cygwin distribution then type:
 chere -i
 in a cygwin console.
 
