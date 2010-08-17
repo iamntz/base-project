@@ -6,12 +6,17 @@ but I quickly find out that is a odd method and too many steps where involved in
 And because I just discovered Git, I also just discovered bash prompt. 
 So I created a quick bash script with all the stuff I need.
 
-You just need to copy `base_project` and `i.bash` on your home directory. 
-hint: make a hardlink to i.bash to keep it updated ;)
+You just need to copy `baseproject` in your home directory and make a SymLink of i.bash to home directory.
+To do so, in opne a bash prompt and type:
 
-Now, every time I open console I just type:
+ln ~/baseproject/i.bash ~/i.bash
 
-~/i.bash
+That's all! All you have to do now is to right click a directory (on windows, I really don't know how it works on other platforms!) 
+and chose „Bash Prompt Here*” then type: ~/i.bash .
+
+* if you don't have „bash promt here”, install chere in your cygwin distribution then type 
+chere -i
+in a cygwin console.
 
 All files are created.
 
