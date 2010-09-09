@@ -24,8 +24,6 @@ caption, th, td {text-align:left;font-weight:100}
 
 textarea {overflow:auto}
 button {cursor:pointer;padding:0}
-*:first-child+html button {width:1;overflow:visible}
-* html button {width:1;overflow:visible}
 button::-moz-focus-inner { border: 0; }
 
 input[type="checkbox"], input[type="radio"], input.radio, input.checkbox {vertical-align:text-top;width:13px;height:13px;padding:0;margin:0;position:relative;overflow:hidden;top:2px}
@@ -36,16 +34,18 @@ a:hover {text-decoration:underline}
 :focus {outline:0}
 a:focus {outline:1px dotted #999}
 
+/* extra IE fixing
+------------------------------------------------------------- */
+.ie7 img { -ms-interpolation-mode: bicubic; }
+.ie7 button {width:1;overflow:visible}
+.ie6 button {width:1;overflow:visible}
+
 .clearfix:after {content:".";display:block;height:0;clear:both;visibility:hidden}
-.clearfix {display:inline-block}
-/* Hide from IE Mac \*/
 .clearfix {display:block}
-/* End hide from IE Mac */
-* html .clearfix {height:1px}
+.ie6 .clearfix {height:1px}
 
 .leftalign,.alignleft{float:left}
 .rightalign,.alignright{float:right}
-
 /* @end */
 
 body {
