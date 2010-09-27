@@ -40,9 +40,10 @@ a:focus {outline:1px dotted #999}
 .ie7 button {width:1;overflow:visible}
 .ie6 button {width:1;overflow:visible}
 
-.clearfix:after {content:".";display:block;height:0;clear:both;visibility:hidden}
-.clearfix {display:block}
-.ie6 .clearfix {height:1px}
+.clearfix:before,
+.clearfix:after { content: "."; display: block; height: 0; visibility: hidden; }
+.clearfix:after {clear: both; }
+.ie .clearfix {zoom: 1;} /* IE < 8 */
 
 .leftalign,.alignleft{float:left}
 .rightalign,.alignright{float:right}
