@@ -1,21 +1,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>template file</title>
 		<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" />
+		
+		<script type="text/javascript" charset="utf-8">
+			/* <![CDATA[ */
+				var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
+				(function(d, t) {
+					var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+					g.async = true;
+					g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					s.parentNode.insertBefore(g, s);
+				})(document, 'script');
+			/* ]]> */
+		</script>
 	</head>
-<!--[if lt IE 7]>  <body class="ie ie6 lte9 lte8 lte7"> <![endif]-->
-<!--[if IE 7]>     <body class="ie ie7 lte9 lte8 lte7"> <![endif]-->
-<!--[if IE 8]>     <body class="ie ie8 lte9 lte8"> <![endif]-->
-<!--[if IE 9]>     <body class="ie ie9 lte9"> <![endif]-->
-<!--[if gt IE 9]>  <body> <![endif]-->
-<!--[if !IE]><!--> <body> <!--<![endif]-->
+	<body>
 		<div id="wrap">
 			
 		</div><!--/wrap-->
-		<script src="js/jquery-latest.min.js" type="text/javascript" charset="utf-8"></script>
+	  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script>!window.jQuery && document.write(unescape('%3Cscript src="js/jquery-latest.min.js"%3E%3C/script%3E'))</script>
+  
 		<script src="js/script.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 </html>
