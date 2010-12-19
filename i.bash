@@ -1,37 +1,25 @@
 #!/bin/bash
-mkdir {css,js,resources,images,content};
-cat ~/baseproject/css/screen.css > css/screen.css
-cat ~/baseproject/js/script.js > js/script.js
-cat ~/baseproject/.gitignore > .gitignore
-cat ~/baseproject/.htaccess > .htaccess
+cp -r ~/baseproject/* .
+cp -r ~/baseproject//.[a-zA-Z0-9]* .
 
-cat ~/baseproject/basefile.php > basefile.php
+rm -rf .git
+rm i.bash
+rm README
 
-read -p "Add jQuery to js folder? " -n 1
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-	echo ''
-	cd js/
+cd js/lib/
   wget http://code.jquery.com/jquery-latest.min.js
-  cd ..
-  cat ~/baseproject/basefile.php > basefile.php
-else 
-cat ~/baseproject/basefile_nojQuery.php > basefile.php
-fi
+cd ../..
 
 read -p "Git init? " -n 1
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 	echo ''
   git init
-fi
-
-read -p "Git add & commit? " -n 1
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
 	echo ''
   git add .
   git commit -a -m 'Initial Commit'
+else
+	rm .gitignore
 fi
 
 echo 'Done! Enjoy!'
