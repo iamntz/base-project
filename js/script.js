@@ -3,5 +3,6 @@ jQuery.fn.rdy = function(func){
 	return this;
 };
 jQuery(document).ready(function($){
+	$('html').removeClass('no-js');
 	
 });
