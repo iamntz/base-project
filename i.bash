@@ -22,4 +22,32 @@ else
 	rm .gitignore
 fi
 
+
+read -p "Is WordPress? " -n 1
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+	wget http://wordpress.org/latest.tar.gz
+	tar --strip-components=1 -zxf latest.tar.gz
+	rm latest.tar.gz
+	
+	echo "Theme name: "
+	read theme_name
+	cd wp-content/themes/
+	mkdir $theme_name
+	cd $theme_name
+	mkdir includes
+	mkdir plugins
+	~/i.bash
+	
+	rm -rf wp-base
+	
+	cp -r ~/baseproject/wp-base/* .
+	
+	touch functions.php
+	touch index.php
+	touch style.css
+	touch header.php
+	touch footer.php
+fi
+
 echo 'Done! Enjoy!'

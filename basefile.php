@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!--[if lt IE 7 ]> <html lang="en" class="no-js msie ie6 lte9 lte7"> <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="no-js msie ie7 lte9 lte7"> <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" class="no-js msie ie6 lte9 lte8 lte7"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js msie ie7 lte9 lte8 lte7"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="no-js msie ie8 lte9 lte8"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en" class="no-js msie ie9 lte9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->

@@ -33,7 +33,7 @@ ol { list-style-type: decimal; }
 nav ol, nav ul, nav li { margin: 0; list-style:none; } 
 
 small { font-size: 85%; }
-b, strong, th { font-weight: 400; }
+b, strong, th { font-weight: 700; }
 td, td img { vertical-align: top; } 
 sub { vertical-align: sub; font-size: smaller; }
 sup { vertical-align: super; font-size: smaller; }
