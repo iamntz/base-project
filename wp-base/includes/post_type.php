@@ -3,25 +3,25 @@
 function change_post_menu_label() {
 	global $menu;
 	global $submenu;
-	$menu[5][0] = 'News';
-	$submenu['edit.php'][5][0] = 'News';
-	$submenu['edit.php'][10][0] = 'Add News';
-	$submenu['edit.php'][16][0] = 'News Tags';
+	$menu[5][0] = 'Blog';
+	$submenu['edit.php'][5][0] = 'Blog';
+	$submenu['edit.php'][10][0] = 'Add new';
+	$submenu['edit.php'][16][0] = 'Blog Tags';
 	echo '';
 }
 function change_post_object_label() {
 	global $wp_post_types;
 	$labels = &$wp_post_types['post']->labels;
-	$labels->name = 'News';
-	$labels->singular_name = 'News';
-	$labels->add_new = 'Add News';
-	$labels->add_new_item = 'Add News';
-	$labels->edit_item = 'Edit News';
-	$labels->new_item = 'News';
-	$labels->view_item = 'View News';
-	$labels->search_items = 'Search News';
-	$labels->not_found = 'No News found';
-	$labels->not_found_in_trash = 'No News found in Trash';
+	$labels->name = 'Blog';
+	$labels->singular_name = 'Blog';
+	$labels->add_new = 'Add new';
+	$labels->add_new_item = 'Add new';
+	$labels->edit_item = 'Edit new';
+	$labels->new_item = 'Blog';
+	$labels->view_item = 'View';
+	$labels->search_items = 'Search Blog';
+	$labels->not_found = 'No blog entry found';
+	$labels->not_found_in_trash = 'No blog entry found in Trash';
 }
 // ============================
 // = rename default post name =
@@ -35,10 +35,10 @@ function create_post_type($type) {
   $labels = array(
     'name'										=>	$type['title'],
     'singular_name'						=>	$type['title'],
-    'add_new'									=>	'New entry',
-    'add_new_item'						=>	'New entry',
+    'add_new'									=>	'Add new',
+    'add_new_item'						=>	'Add new',
     'edit_item'								=>	'Edit entry',
-    'new_item'								=>	'New entry',
+    'new_item'								=>	'Add new',
     'view_item'								=>	'View entry',
     'search_items'						=>	'Search entry',
     'not_found'								=>	'No entry found',
@@ -54,6 +54,7 @@ function create_post_type($type) {
     'rewrite'							=>	true,
     'capability_type'			=>	'post',
     'hierarchical'				=>	false,
+    'has_archive'					=>	true, // http://www.wpmods.com/wordpress-3-1-custom-post-type-archives
     'menu_position'				=> 6,
   	'taxonomies'					=>	$type['taxonomies'],
   	'supports'						=> is_array($type['supports']) ? 
@@ -69,7 +70,7 @@ function create_post_type($type) {
   																'comments',
   																'revisions',
   																'page-attributes'
-  															)
+  																)
   );
   register_post_type($type['name'],$args);
   if($type['hasCategories']==true){
@@ -80,20 +81,21 @@ function create_post_type($type) {
 }
 add_action('init', 'post_type');
 function post_type(){
-	create_post_type(array('name'=>'work', 'title'=>'Our Work', 'taxonomies'=>array('do-work'), 'supports'=>array('title','editor','author','thumbnail','excerpt','custom-fields'), 'hasCategories'=>true));
- 	//create_post_type(array('name'=>'', 'title'=>'', 'taxonomies'=>array('do-'), 'supports'=>array('title','editor','author','thumbnail','excerpt','custom-fields'), 'hasCategories'=>true ));
+	//create_post_type(array('name'=>'blog', 'title'=>'Blog', 'taxonomies'=>array('do-blog'), 'supports'=>array('comments', 'title','editor','thumbnail','excerpt','custom-fields'), 'hasCategories'=>true));
+	//create_post_type(array('name'=>'apps', 'title'=>'Apps', 'taxonomies'=>array('do-apps'), 'supports'=>array('title','editor','thumbnail','excerpt','custom-fields'), 'hasCategories'=>false));
+	//create_post_type(array('name'=>'books', 'title'=>'Books', 'taxonomies'=>array('do-books'), 'supports'=>array('title','editor','thumbnail','excerpt','custom-fields'), 'hasCategories'=>false));
+	//create_post_type(array('name'=>'music', 'title'=>'Music', 'taxonomies'=>array('do-music'), 'supports'=>array('title','editor','thumbnail','excerpt','custom-fields'), 'hasCategories'=>false));
+	//create_post_type(array('name'=>'products', 'title'=>'Products', 'taxonomies'=>array('do-products'), 'supports'=>array('title','editor','thumbnail','excerpt','custom-fields'), 'hasCategories'=>false));
+	//create_post_type(array('name'=>'charity', 'title'=>'Charity', 'taxonomies'=>array('do-charity'), 'supports'=>array('title','editor','thumbnail','excerpt','custom-fields'), 'hasCategories'=>false));
 }
 
-add_action('admin_head', 'cpt_icons');
-function cpt_icons(){
-	?>
-	<style type="text/css" media="screen">
-		#favorite-actions,
-		#menu-links,
-		#menu-media {
-			display:none;
-		}
-
-	</style>
-	<?php 
+function remove_menus () {
+	global $menu;
+	$restricted = array('Posts', 'Media', 'Links');
+	end ($menu);
+	while (prev($menu)){
+		$value = explode(' ',$menu[key($menu)][0]);
+		if(in_array($value[0] != NULL?$value[0]:"" , $restricted)){unset($menu[key($menu)]);}
+	}
 }
+//add_action('admin_menu', 'remove_menus');

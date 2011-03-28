@@ -17,7 +17,7 @@ $ntz = json_decode(get_option('ntz_settings'));
 function ntz_init() {
  if(!is_admin()){
 	  wp_deregister_script('jquery');
-	  wp_register_script('jquery', PATH.'/js/lib/jquery-latest.js', '', 'x', 1);
+	  wp_register_script('jquery', PATH.'/js/lib/jquery-latest.min.js', '', 'x', 1);
 	  wp_enqueue_script('ntz', PATH .'/js/script.js', array('jquery'), 1, 1);
   }
 }
@@ -63,7 +63,71 @@ function ntz_replace_emails($content){
 
 // add_filter("the_content", "ntz_replace_emails");
 
+// ==================
+// = custom excerpt =
+// ==================
+function new_excerpt($words = 90, $link_text = 'view all', $allowed_tags = '<a>,<p>,<i>,<em>,<strong>,<b>,<blockquote>,<li>,<ul>,<ol>', $container = 'p', $smileys = 'no' ){
+	global $post;
+  if ( $allowed_tags == 'all' ) $allowed_tags = '<a>,<p>,<i>,<em>,<b>,<strong>,<ul>,<ol>,<li>,<span>,<blockquote>,<img>';
+	$excerpt = $post->post_excerpt; 
+	if($excerpt){
+		echo '<p>',$excerpt,'</p>';
+	}else {
+	  $text = preg_replace('/\[.*\]/', '', strip_tags(apply_filters('the_content', $post->post_content), $allowed_tags));
+	  $text = explode(' ', $text);
+	  $tot = count($text);
+	  for ($i=0; $i<$words; $i++) { $output .= $text[$i] . ' '; }
+		$output = force_balance_tags($output.'');
+		echo '<p>',$output,'</p>';
+	}
+	if($link_text != 'hide') {
+		echo '<p class="ta-r readmoreWrap"><a href="'.get_permalink().'" class="readmore">'.$link_text.'</a></p>';
+	}
+}
+
+// =============================
+// = removing l10n from header =
+// =============================
+if ( !is_admin() ) {
+	function my_init_method() {
+		wp_deregister_script( 'l10n' );
+	}
+	add_action('init', 'my_init_method'); 
+}
 
 
+// ================
+// = short titles =
+// ================
+function get_short_title($long=999){
+	global $post;
+	$title = get_the_title();
+	return ( strlen($title)>$long ? substr( $title, 0, $long).' &#0133;' : $title );
+}
 
+// ==================================
+// = search within custom post type =
+// ==================================
+function filterGet($cleanThis){
+	$q = htmlspecialchars(trim(stripslashes(strip_tags($cleanThis))), ENT_QUOTES, 'UTF-8');
+	$q = filter_var($q, FILTER_SANITIZE_STRING);
+	return $q;
+}
+function searchAll( $query ) {
+	if ( is_search() && is_array($_GET['post_type']) ){
+		$post_type = array_map("filterGet", $_GET['post_type']);
+		$query->set( '&post_type', $post_type);
+	}	
+	return $query;
+}
+add_filter( 'pre_get_posts', 'searchAll' );
 
+// ============================================
+// = make default feed for a custom post type =
+// ============================================
+function myfeed_request($qv) {
+	if (isset($qv['feed']))
+		$qv['post_type'] = 'blog';
+	return $qv;
+}
+add_filter('request', 'myfeed_request');

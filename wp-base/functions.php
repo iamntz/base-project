@@ -1,5 +1,7 @@
 <?php
 error_reporting(E_ALL - E_NOTICE);
+//global $wpdb;
+//$wpdb->show_errors();
 
 global $ntz;
 $ntz = json_decode(get_option('ntz_settings'));
@@ -11,7 +13,7 @@ if (!function_exists('ntz_setup')){
 		add_editor_style();
 	
 		add_theme_support( 'post-thumbnails' );
-	
+		add_post_type_support('page', 'excerpt');
 		add_theme_support('automatic-feed-links');
 	
 		// This theme uses wp_nav_menu() in one location.

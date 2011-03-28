@@ -43,7 +43,7 @@ textarea { overflow: auto; }
 input[type="radio"] { vertical-align: text-bottom; }
 input[type="checkbox"] { vertical-align: bottom; }
 input[type=button], input[type=submit], button { cursor: pointer; }
-button, input, select, textarea { margin: 0; }
+button, input, select, textarea { margin: 0; outline: none; }
 
 /*
 ::-moz-selection{ background: #FF5E99; color:#fff; text-shadow: none; }
@@ -53,6 +53,7 @@ a:link { -webkit-tap-highlight-color: #FF5E99; }
 
 ::-webkit-input-placeholder	{ color:#999; }
 input:-moz-placeholder { color:#999; }
+input[type="search"] { -webkit-appearance: textfield; }
 
 button { width: auto; overflow: visible; }
 
