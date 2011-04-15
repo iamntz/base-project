@@ -1,18 +1,18 @@
 <?php 
 
-add_action('admin_menu', 'ntz_settings');
+add_action( 'admin_menu', 'ntz_settings' );
 function ntz_settings(){
-	add_options_page('Site Settings', 'Site Settings', 'administrator', 'ntz_theme_settings', 'ntz_theme_settings');
+	add_options_page( 'Site Settings', 'Site Settings', 'administrator', 'ntz_theme_settings', 'ntz_theme_settings' );
 }
 function ntz_theme_settings(){
-	if(isset($_POST['ntz_do']) && $_POST['ntz_do']=='save'){
-		foreach($_POST as $ntz_settingsID=>$ntz_setting){
+	if( isset( $_POST['ntz_do']) && $_POST['ntz_do']=='save' ){
+		foreach( $_POST as $ntz_settingsID=>$ntz_setting ){
 			$ntz_settings[$ntz_settingsID] = $ntz_setting;
 		}
     update_option( 'ntz_settings', json_encode($ntz_settings) );
 	}
 	ntz_custom_styles();
-	$ntz_settings = json_decode(get_option('ntz_settings'));
+	$ntz_settings = json_decode( get_option('ntz_settings') );
 	echo '<form class="wrap ntz_custom_form" method="post" action=""><h2>Site settings</h2> <input type="hidden" name="ntz_do" value="save" />';
 
 	//echo '<p><label>News Page:</label>';
@@ -31,23 +31,23 @@ function ntz_theme_settings(){
 	echo '<p><input type="submit" value="Save Settings" accesskey="s" class="button-primary" name="submit"></p>';
 	echo '</form>';
 }
-function ntz_drop_pages($select_name, $value=null){
+function ntz_drop_pages( $select_name, $value=null ){
 	$all_pages = get_pages(0);
 	$ret = '<select name="'.$select_name.'" id="'.$select_name.'"><option>------------</option>';
-	foreach($all_pages as $single_page){
-		$is_selected = ($single_page->ID == $value) ? ' selected="selected"' : '';
+	foreach( $all_pages as $single_page ){
+		$is_selected = ( $single_page->ID == $value ) ? ' selected="selected"' : '';
 		$ret .= '<option value="'.$single_page->ID.'"'.$is_selected.'>'.$single_page->post_title.'</option>';
 	}
 	$ret .= '</select>';
 	return $ret;
 }
 
-function ntz_drop_articles($options=array('select_name', 'value'=>null, 'post_type'=>'Any')){
+function ntz_drop_articles( $options=array( 'select_name', 'value'=>null, 'post_type'=>'Any' ) ){
 	$ret = '<select name="'.$options['select_name'].'" id="'.$options['select_name'].'"><option>------------</option>';
 	$all_articles = new WP_Query();
-	$all_articles->query('showposts=9999&post_type='.$options['post_type']);
+	$all_articles->query( 'showposts=9999&post_type='.$options['post_type'] );
 	global $post;
-	while ($all_articles->have_posts()){ $all_articles->the_post();
+	while ( $all_articles->have_posts() ){ $all_articles->the_post();
 		$is_selected = ($post->ID == $options['value']) ? ' selected="selected"' : '';
 		$ret .= '<option value="'.$post->ID.'"'.$is_selected.'>'.$post->post_title.'</option>';
 	}

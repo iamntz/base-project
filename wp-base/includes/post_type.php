@@ -70,18 +70,18 @@ function create_post_type($type) {
   																'comments',
   																'revisions',
   																'page-attributes'
-  																)
+																)
   );
-  register_post_type($type['name'],$args);
-  if($type['hasCategories']==true){
-	  register_taxonomy('do-'.$type['name'], array($type['name']), array("hierarchical" => true, "label" => 'Categories', "singular_label" => ucwords($type['name']) .' Category', "rewrite" => true));  
-	  register_taxonomy_for_object_type($type['name'], 'do-'.$type['name']);
+  register_post_type( $type['name'],$args );
+  if( $type['hasCategories']==true ){
+	  register_taxonomy( 'do-'.$type['name'], array($type['name']), array( "hierarchical" => true, "label" => 'Categories', "singular_label" => ucwords($type['name']) .' Category', "rewrite" => true ) );  
+	  register_taxonomy_for_object_type( $type['name'], 'do-'.$type['name'] );
   }
   
 }
 add_action('init', 'post_type');
 function post_type(){
-	//create_post_type(array('name'=>'blog', 'title'=>'Blog', 'taxonomies'=>array('do-blog'), 'supports'=>array('comments', 'title','editor','thumbnail','excerpt','custom-fields'), 'hasCategories'=>true));
+	//create_post_type(array('name'=>'blog', 'title'=>'Blog', 'taxonomies'=>array('do-blog', 'post_tag'), 'supports'=>array('comments', 'title','editor','thumbnail','excerpt','custom-fields'), 'hasCategories'=>true));
 	//create_post_type(array('name'=>'apps', 'title'=>'Apps', 'taxonomies'=>array('do-apps'), 'supports'=>array('title','editor','thumbnail','excerpt','custom-fields'), 'hasCategories'=>false));
 	//create_post_type(array('name'=>'books', 'title'=>'Books', 'taxonomies'=>array('do-books'), 'supports'=>array('title','editor','thumbnail','excerpt','custom-fields'), 'hasCategories'=>false));
 	//create_post_type(array('name'=>'music', 'title'=>'Music', 'taxonomies'=>array('do-music'), 'supports'=>array('title','editor','thumbnail','excerpt','custom-fields'), 'hasCategories'=>false));
@@ -91,11 +91,13 @@ function post_type(){
 
 function remove_menus () {
 	global $menu;
-	$restricted = array('Posts', 'Media', 'Links');
-	end ($menu);
-	while (prev($menu)){
-		$value = explode(' ',$menu[key($menu)][0]);
-		if(in_array($value[0] != NULL?$value[0]:"" , $restricted)){unset($menu[key($menu)]);}
+	$restricted = array( 'Posts', 'Media', 'Links' );
+	end ( $menu );
+	while ( prev($menu) ){
+		$value = explode( ' ',$menu[key($menu)][0] );
+		if( in_array( $value[0] != NULL?$value[0]:"" , $restricted ) ){
+			unset( $menu[key($menu)] );
+		}
 	}
 }
 //add_action('admin_menu', 'remove_menus');
