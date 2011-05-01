@@ -22,7 +22,7 @@ jQuery(document).ready(function($){
 				searchField.addClass("placeholder")
 			}
 			
-			searchField.bind("focus", function () { this.value = ''; }).bind("blur", function () {
+			searchField.bind("focus", function () { if(this.value == $(this).data('placeholder')){this.value='';} }).bind("blur", function () {
 				if (this.value.length === 0) {
 					$(this).val(originalText).addClass("placeholder");
 				}

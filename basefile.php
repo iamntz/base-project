@@ -14,7 +14,7 @@
 		
 		<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" />
 		
-		<script type="text/javascript" charset="utf-8">
+		<script type="text/javascript">
 			/* <![CDATA[ */
 				var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 				(function(d, t) {
@@ -41,6 +41,6 @@
 			<script src="js/lib/selectivizr.js" type="text/javascript" charset="utf-8"></script>
 		<![endif]-->
   
-		<script src="js/script.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/script.js" type="text/javascript"></script>
 	</body>
 </html>

@@ -108,29 +108,9 @@ function new_meta_boxes( $post_data, $meta_info ) {
 		echo '<br/><small class="desc">'.$o['desc'].'</small></p>';
 	}// foreach
 	echo '</div>';
-if( $hasUploader==true ){ ?>
-<script>
-	jQuery(document).ready(function($) {
-		var oldSendToEditor = window.send_to_editor;
-		$('.ntzUploadTrigger').click(function() {
-			var ntzUploadTarget = $(this).parent().find('.ntzUploadTarget');
-			window.send_to_editor = function(html) {
-				imgurl = $('img',html).attr('src') || $(html).attr('src');
-				ntzUploadTarget.val(imgurl).focus().blur();
-				ntzUploadTarget = '';
-				tb_remove();
-				if(typeof(oldSendToEditor)=='function') { 
-					window.send_to_editor = oldSendToEditor;
-				}
-			}					
-			tb_show('Upload file', 'media-upload.php?type=image&amp;TB_iframe=true');
-			return false;
-		});
-	});
-</script>
 
-<?php } ?>	
-?>
+if( $hasUploader==true ){ ntz_img_uploader(); } ?>
+
 <style type="text/css" media="screen">
 	.ntz_panel p {
 		overflow:auto

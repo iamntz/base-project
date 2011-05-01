@@ -200,3 +200,71 @@ function print_pre( $s ) {
 		echo '</pre>';
 	}
 }
+
+
+
+// ===============
+// = js uploader =
+// ===============
+function ntz_img_uploader(){
+	// wp_enqueue_script( array("jquery", "jquery-ui-core", "jquery-ui-sortable", 'media-upload', 'thickbox') );
+	
+?>
+	<style type="text/css" media="screen">
+	#TB_title {
+		overflow:hidden;
+		padding:5px;
+	}
+		#TB_ajaxWindowTitle {float:left;}
+		#TB_closeAjaxWindow {float:right;}
+	#TB_overlay {
+	  height: 100%;
+	  left: 0;
+	  position: fixed;
+	  top: 0;
+	  width: 100%;
+	  z-index: 100;
+	}
+	.TB_overlayBG {
+	  background-color: #000000;
+	  opacity: 0.70;
+	  -moz-opacity: 0.70;
+	  filter:alpha(opacity=70);
+	}
+	#TB_window {
+	    -moz-box-shadow:0px 4px 30px #000;
+	    -webkit-box-shadow:0px 4px 30px #000;
+	    box-shadow:0px 4px 30px #000;
+	    background: none repeat scroll 0 0 #FFFFFF;
+	    border: 1px solid #555555;
+	    color: #000000;
+	    display: none;
+	    left: 50%;
+	    position: fixed;
+	    text-align: left;
+	    top: 50%;
+	    z-index: 102;
+	}
+	</style>
+	<script>
+		jQuery(document).ready(function($) {
+			var oldSendToEditor = window.send_to_editor;
+			$('.ntzUploadTrigger').live('click', function() {
+				console.log(1);
+				var ntzUploadTarget = $(this).parent().find('.ntzUploadTarget');
+				window.send_to_editor = function(html) {
+					imgurl = $('img',html).attr('src') || $(html).attr('src');
+					ntzUploadTarget.val(imgurl).focus().blur();
+					ntzUploadTarget = '';
+					tb_remove();
+					if(typeof(oldSendToEditor)=='function') { 
+						window.send_to_editor = oldSendToEditor;
+					}
+				}
+				tb_show('Upload file', 'media-upload.php?type=image&amp;TB_iframe=true');
+				return false;
+			});
+		});
+	</script>
+	<?php 
+}
