@@ -11,9 +11,6 @@ function curPageURL() {
  return $pageURL;
 }
 
-global $ntz;
-$ntz = json_decode(get_option('ntz_settings'));
-
 function ntz_init() {
  if( !is_admin() ){
 	  wp_deregister_script( 'jquery' );
@@ -250,7 +247,6 @@ function ntz_img_uploader(){
 		jQuery(document).ready(function($) {
 			var oldSendToEditor = window.send_to_editor;
 			$('.ntzUploadTrigger').live('click', function() {
-				console.log(1);
 				var ntzUploadTarget = $(this).parent().find('.ntzUploadTarget');
 				window.send_to_editor = function(html) {
 					imgurl = $('img',html).attr('src') || $(html).attr('src');

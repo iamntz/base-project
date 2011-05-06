@@ -40,8 +40,11 @@ sup { vertical-align: super; font-size: smaller; }
 pre { padding: 15px; white-space: pre; white-space: pre-wrap; white-space: pre-line; word-wrap: break-word; }
 textarea { overflow: auto; } 
 
-input[type="radio"] { vertical-align: text-bottom; }
-input[type="checkbox"] { vertical-align: bottom; }
+input[type="checkbox"] { vertical-align: text-bottom; }
+.lte7 input[type="checkbox"] { vertical-align:bottom; }
+
+input[type="radio"] { vertical-align: bottom  }
+
 input[type=button], input[type=submit], button { cursor: pointer; }
 button, input, select, textarea { margin: 0; outline: none; }
 

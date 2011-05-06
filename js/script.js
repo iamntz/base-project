@@ -4,42 +4,36 @@ jQuery.fn.rdy = function(func){
 };
 jQuery(document).ready(function($){
 	$('html').removeClass('no-js');
-	/*== placeholder for browsers that sucks ==*/
-	var fakeInput = document.createElement("input"),
+	enablePlaceholderSupport();
+});
+
+function enablePlaceholderSupport(wrap){
+	var $ = jQuery,
+			wrap = wrap || 'body',
+			fakeInput = document.createElement("input"),
 			placeHolderSupport = ("placeholder" in fakeInput),
-			clearValue = function (e) {
-				if ($(e).val() === $(e).data('placeholder')) {
-					$(e).val('');
-				}
-			};
+			clearValue = function (e) { if ($(e).val() === $(e).data('placeholder')) { $(e).val(''); } };
+
 	if (!placeHolderSupport) {
-		$('input[placeholder]').each(function(){
+		$('input[placeholder]', wrap).each(function(){
+
 			var searchField = $(this),
 					originalText = searchField.attr('placeholder'),
-					val = this.value;
+					val = $.trim(this.value);
+			if(typeof searchField.data('placeholder') !== 'undefined') { return; }
+
 			searchField.data('placeholder', originalText);
-			if(val == '') { this.value = originalText; }else {
-				searchField.addClass("placeholder")
-			}
-			
-			searchField.bind("focus", function () { if(this.value == $(this).data('placeholder')){this.value='';} }).bind("blur", function () {
+			if(val == '') { $(this).val(originalText).addClass("placeholder"); }
+
+			searchField.bind("focus.ntz_placeholder", function () { if(this.value == $(this).data('placeholder')){ $(this).val('').removeClass('placeholder'); } }).bind("blur.ntz_placeholder", function () {
 				if (this.value.length === 0) {
 					$(this).val(originalText).addClass("placeholder");
 				}
 			});
 		});
 
-		// Empties the placeholder text at form submit if it hasn't changed
-		$("form").bind("submit", function () {
-			clearValue($('input[placeholder]', this));
-		});
+		$("form").bind("submit.ntz_placeholder", function () { $('input[placeholder]', this).each(function(){ clearValue(this); });	});
 
-		// Clear at window reload to avoid it stored in autocomplete
-		$(window).bind("unload", function () {
-			clearValue($('input[placeholder]', this));
-		});
+		$(window).bind("unload.ntz_placeholder", function () { clearValue($('input[placeholder]', this)); });
 	}
-	/*== end placeholder ==*/
-});
-
-
+}
