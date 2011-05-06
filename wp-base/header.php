@@ -14,8 +14,8 @@
 	wp_title( '|', true, 'right' );
 	bloginfo( 'name' );
 	$site_description = get_bloginfo( 'description', 'display' );
-	if ($site_description && (is_home() || is_front_page())) {echo " | $site_description";}
-	if ($paged >= 2 || $page >= 2) {echo ' | ' . sprintf(__('Page %s', 'ntz'), max($paged, $page ));}	
+	if ( $site_description && ( is_home() || is_front_page() ) ) { echo " | $site_description"; }
+	if ( $paged >= 2 || $page >= 2 ) { echo ' | ' . sprintf( __('Page %s', 'ntz'), max( $paged, $page ) );}	
 ?></title>
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -38,7 +38,7 @@ if( is_readable( get_template_directory().'/favicon.ico' ) ){ ?>
 <?php if( strlen( $ntz->g_analytics ) > 0 ){ // displaying g.analytics before wp_head to avoid any script block ?>
 <script>
 	/* <![CDATA[ */
-		var _gaq = [['_setAccount', '<?php echo $ntz->g_analytics; ?>'], ['_trackPageview']];
+		var _gaq = [['_setAccount', '<?php echo $ntz->g_analytics; ?>'], ['_trackPageview'], ['_trackPageLoadTime']];
 		(function(d, t) {
 			var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
 			g.async = true;
