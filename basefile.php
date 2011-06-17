@@ -10,12 +10,11 @@
 		<title>base.project</title>
 		
 		<!-- html5 elements for ie<9 -->
-		<!--[if lte IE 8 ]> <script type="text/javascript" charset="utf-8"> /* <![CDATA[ */ var htmlForIe = ["abbr" ,"article" ,"aside" ,"audio" ,"canvas" ,"details" ,"figcaption" ,"figure" ,"footer" ,"header" ,"hgroup" ,"mark" ,"meter" ,"nav" ,"output" ,"progress" ,"section" ,"summary" ,"time" ,"video"], htmlForIeLen = htmlForIe.length; for(i=0;i<htmlForIeLen;i++){ document.createElement(htmlForIe[i]); } /* ]]> */ </script> <![endif]-->
+		<!--[if lte IE 8 ]> <script type="text/javascript">var htmlForIe = ["abbr" ,"article" ,"aside" ,"audio" ,"canvas" ,"details" ,"figcaption" ,"figure" ,"footer" ,"header" ,"hgroup" ,"mark" ,"meter" ,"nav" ,"output" ,"progress" ,"section" ,"summary" ,"time" ,"video"], htmlForIeLen = htmlForIe.length; for(i=0;i<htmlForIeLen;i++){ document.createElement(htmlForIe[i]); }</script> <![endif]-->
 		
 		<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" />
 		
 		<script type="text/javascript">
-			/* <![CDATA[ */
 				var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview'], ['_trackPageLoadTime']];
 				(function(d, t) {
 					var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
@@ -23,7 +22,6 @@
 					g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 					s.parentNode.insertBefore(g, s);
 				})(document, 'script');
-			/* ]]> */
 		</script>
 <!--
 	  <link rel="shortcut icon" href="favicon.ico">
@@ -38,7 +36,7 @@
 		<script>!window.jQuery && document.write(unescape('%3Cscript src="js/lib/jquery-latest.min.js"%3E%3C/script%3E'))</script>
 
 		<!--[if lte IE 8]>
-			<script src="js/lib/selectivizr.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/lib/selectivizr.js" type="text/javascript""></script>
 		<![endif]-->
   
 		<script src="js/script.js" type="text/javascript"></script>

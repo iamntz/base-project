@@ -31,9 +31,9 @@ function ntz_theme_settings(){
 	echo '<p><input type="submit" value="Save Settings" accesskey="s" class="button-primary" name="submit"></p>';
 	echo '</form>';
 }
-function ntz_drop_pages( $select_name, $value=null ){
+function ntz_drop_pages( $select_name, $value=null, $defaultText = '------------' ){
 	$all_pages = get_pages(0);
-	$ret = '<select name="'.$select_name.'" id="'.$select_name.'"><option>------------</option>';
+	$ret = '<select name="'.$select_name.'" id="'.$select_name.'"><option>'.$default.'</option>';
 	foreach( $all_pages as $single_page ){
 		$is_selected = ( $single_page->ID == $value ) ? ' selected="selected"' : '';
 		$ret .= '<option value="'.$single_page->ID.'"'.$is_selected.'>'.$single_page->post_title.'</option>';
