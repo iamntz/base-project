@@ -55,4 +55,9 @@ git init
 git add .
 git commit -a -m 'Initial Commit'
 
+git branch hotfix
+git branch release
+
+git co -b develop
+
 echo 'Done! Enjoy!'

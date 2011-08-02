@@ -1,21 +1,21 @@
 <?php 
 function curPageURL() {
- $pageURL = 'http';
- if ($_SERVER["HTTPS"] == "on") { $pageURL .= "s"; }
- $pageURL .= "://";
- if ($_SERVER["SERVER_PORT"] != "80") {
-  $pageURL .= $_SERVER["HTTP_HOST"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
- } else {
-  $pageURL .= $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
- }
- return $pageURL;
+	$pageURL = 'http';
+	if ($_SERVER["HTTPS"] == "on") { $pageURL .= "s"; }
+	$pageURL .= "://";
+	if ($_SERVER["SERVER_PORT"] != "80") {
+		$pageURL .= $_SERVER["HTTP_HOST"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+	} else {
+		$pageURL .= $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+	}
+	return $pageURL;
 }
 
 function ntz_init() {
  if( !is_admin() ){
-	  wp_deregister_script( 'jquery' );
-	  wp_register_script( 'jquery', PATH.'/js/lib/jquery-latest.min.js', '', 'x', 1 );
-	  wp_enqueue_script( 'ntz', PATH .'/js/script.js', array('jquery'), JS_VERSION, 1 );
+		wp_deregister_script( 'jquery' );
+		wp_register_script( 'jquery', PATH.'/js/lib/jquery-latest.min.js', '', 'x', 1 );
+		wp_enqueue_script( 'ntz', PATH .'/js/script.js', array('jquery'), JS_VERSION, 1 );
   }
 }
 add_action( 'init', 'ntz_init' );
@@ -164,26 +164,26 @@ function addURLParameter( $url, $paramName, $paramValue ) {
 }
 
 function build_url( $url_data ){
-  $url = $url_data['scheme'] . '://';
-  if( isset( $url_data['user'] ) ){
-    $url .= $url_data['user'];
-    if( isset( $url_data['pass'] ) ){
-      $url .= ':' . $url_data['pass'];
-    }
-    $url .= '@';
-  }
-  $url .= $url_data['host'];
-  if( isset( $url_data['port'] ) ){
-    $url .= ':' . $url_data['port'];
-  }
-  $url .= $url_data['path'];
-  if( isset( $url_data['query'] ) ){
-    $url .= '?' . $url_data['query'];
-  }
-  if( isset( $url_data['fragment'] ) ){
-    $url .= '#' . $url_data['fragment'];
-  }
-  return $url;
+	$url = $url_data['scheme'] . '://';
+	if( isset( $url_data['user'] ) ){
+		$url .= $url_data['user'];
+		if( isset( $url_data['pass'] ) ){
+			$url .= ':' . $url_data['pass'];
+		}
+			$url .= '@';
+	}
+	$url .= $url_data['host'];
+	if( isset( $url_data['port'] ) ){
+		$url .= ':' . $url_data['port'];
+	}
+	$url .= $url_data['path'];
+	if( isset( $url_data['query'] ) ){
+		$url .= '?' . $url_data['query'];
+	}
+	if( isset( $url_data['fragment'] ) ){
+		$url .= '#' . $url_data['fragment'];
+	}
+	return $url;
 }
 
 
