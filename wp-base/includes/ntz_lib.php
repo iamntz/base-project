@@ -247,16 +247,38 @@ function ntz_img_uploader(){
 		jQuery(document).ready(function($) {
 			var oldSendToEditor = window.send_to_editor;
 			$('.ntzUploadTrigger').live('click', function() {
-				var ntzUploadTarget = $(this).parent().find('.ntzUploadTarget');
-				window.send_to_editor = function(html) {
+				var ntzUploadTarget = $(this).parent().find('.ntzUploadTarget'),
+						ntzUploadTargetId = $(this).parent().find('.ntzUploadTargetId'),
+						ntzGetId,
+						attach_id_pattern = new RegExp("send\[[0-9]*\]");
+				window.clearInterval( ntzGetId );
+
+				ntzGetId = window.setInterval(function(){
+					if( !$('#TB_iframeContent').length ){ window.clearInterval( ntzGetId ); return; };
+					var iframe = $( $('#TB_iframeContent')[0].contentWindow.document.body ),
+							uploadID = $('.savesend .button', iframe).filter(function(){ return $(this).closest('table:visible').length; }).attr('id');
+							if( uploadID ){
+								uploadID = uploadID.replace('send[', '');
+								uploadID = uploadID.replace(']', '');
+								if( ntzUploadTargetId.val() !== uploadID ){
+									ntzUploadTargetId.val( uploadID ).trigger( 'has_id' );
+								}
+							}
+				}, 500);
+
+				window.send_to_editor = function( html ) {
+					console.log(html);
 					imgurl = $('img',html).attr('src') || $(html).attr('src');
 					ntzUploadTarget.val(imgurl).focus().blur();
+					
 					ntzUploadTarget = '';
 					tb_remove();
+					window.clearInterval( ntzGetId );
+					ntzUploadTargetId.trigger( 'upload_complete' );
 					if(typeof(oldSendToEditor)=='function') { 
 						window.send_to_editor = oldSendToEditor;
 					}
-				}
+				};
 				tb_show('Upload file', 'media-upload.php?type=image&amp;TB_iframe=true');
 				return false;
 			});
