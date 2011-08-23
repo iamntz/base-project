@@ -1,5 +1,6 @@
 <?php
 error_reporting( E_ALL - E_NOTICE );
+
 //global $wpdb;
 //$wpdb->show_errors();
 
@@ -13,12 +14,12 @@ define( 'PATH', get_bloginfo( 'stylesheet_directory' ) );
 add_action( 'after_setup_theme', 'ntz_setup' );
 if ( !function_exists('ntz_setup') ){
 	function ntz_setup(){
-		add_editor_style();
-	
+		add_editor_style(); // Default: editor-style.css 
+
 		add_theme_support( 'post-thumbnails' );
 		add_post_type_support( 'page', 'excerpt' );
 		add_theme_support( 'automatic-feed-links' );
-	
+
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
 			'primary' => __( 'Primary Navigation', 'ntz' ),
@@ -50,4 +51,4 @@ function ntz_widgets_init() {
 		'after_title' => '',
 	) );
 }
-add_action( 'widgets_init', 'ntz_widgets_init' );
+//add_action( 'widgets_init', 'ntz_widgets_init' );

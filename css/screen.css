@@ -74,8 +74,8 @@ button { width: auto; overflow: visible; }
 .leftalign,.alignleft{float:left}
 .rightalign,.alignright{float:right}
 .aligncenter {margin:auto;display:block;}
-
-.clearfix:before, .clearfix:after {  content: "\0020"; display: block; height: 0; visibility: hidden;	 } 
+.ta-c {text-align:center;}
+.clearfix:before, .clearfix:after {content: "\0020"; display: block; height: 0; visibility: hidden;}
 .clearfix:after { clear: both; }
 .lte7 .clearfix { zoom: 1; }
 
@@ -85,7 +85,7 @@ a { outline: none; color:#6c5f9e; }
 a:focus { outline:1px dotted #eee; }
 a:hover, a:focus {color:#000;}
 body {
-	
+
 }
 h1, h2, h3, h4, h5, h6 { font-weight:700; }
 h1, h2, h3, h4, h5, h6, p, ol, ul, dl, blockquote {margin-bottom:.8em;}

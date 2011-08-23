@@ -36,4 +36,4 @@ function enablePlaceholderSupport(wrap){
 
 		$(window).bind("unload.ntz_placeholder", function () { clearValue($('input[placeholder]', this)); });
 	}
-};
+}; // enablePlaceholderSupport

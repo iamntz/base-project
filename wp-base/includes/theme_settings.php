@@ -9,7 +9,7 @@ function ntz_theme_settings(){
 		foreach( $_POST as $ntz_settingsID=>$ntz_setting ){
 			$ntz_settings[$ntz_settingsID] = $ntz_setting;
 		}
-    update_option( 'ntz_settings', json_encode($ntz_settings) );
+		update_option( 'ntz_settings', json_encode($ntz_settings) );
 	}
 	ntz_custom_styles();
 	$ntz_settings = json_decode( get_option('ntz_settings') );

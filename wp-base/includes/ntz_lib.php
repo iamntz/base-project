@@ -16,18 +16,18 @@ function ntz_init() {
 		wp_deregister_script( 'jquery' );
 		wp_register_script( 'jquery', PATH.'/js/lib/jquery-latest.min.js', '', 'x', 1 );
 		wp_enqueue_script( 'ntz', PATH .'/js/script.js', array('jquery'), JS_VERSION, 1 );
-  }
+	}
 }
 add_action( 'init', 'ntz_init' );
 
 function is_child_of( $topid, $thispageid = null ){
 	global $post;
-	
+
 	if( $thispageid == null ){
 		$thispageid = $post->ID; # no id set so get the post object's id.
 	}
 	$current = get_page( $thispageid );
-	
+
 	if( $current->post_parent != 0 ){ # so there is a parent 
 		if( $current->post_parent != $topid ) {
 			return is_child_of( $topid, $current->post_parent ); # not that page, run again
@@ -65,17 +65,17 @@ function ntz_replace_emails( $content ){
 // ==================
 function new_excerpt( $words = 90, $link_text = 'view all', $allowed_tags = '<a>,<p>,<i>,<em>,<strong>,<b>,<blockquote>,<li>,<ul>,<ol>', $container = 'p', $smileys = 'no' ){
 	global $post;
-  if ( $allowed_tags == 'all' ) {
-  	$allowed_tags = '<a>,<p>,<i>,<em>,<b>,<strong>,<ul>,<ol>,<li>,<span>,<blockquote>,<img>';
+	if ( $allowed_tags == 'all' ) {
+		$allowed_tags = '<a>,<p>,<i>,<em>,<b>,<strong>,<ul>,<ol>,<li>,<span>,<blockquote>,<img>';
 	}
 	$excerpt = $post->post_excerpt; 
 	if( $excerpt ){
 		echo '<p>',$excerpt,'</p>';
 	}else {
-	  $text = preg_replace('/\[.*\]/', '', strip_tags(apply_filters('the_content', $post->post_content), $allowed_tags));
-	  $text = explode(' ', $text);
-	  $tot = count($text);
-	  for ($i=0; $i<$words; $i++) { $output .= $text[$i] . ' '; }
+		$text = preg_replace('/\[.*\]/', '', strip_tags(apply_filters('the_content', $post->post_content), $allowed_tags));
+		$text = explode(' ', $text);
+		$tot = count($text);
+		for ($i=0; $i<$words; $i++) { $output .= $text[$i] . ' '; }
 		$output = force_balance_tags($output.'');
 		echo '<p>',$output,'</p>';
 	}
@@ -116,7 +116,7 @@ function search_in_all_custom_post_type( $query ) {
 	if ( is_search() && is_array( $_GET['post_type'] ) ){
 		$post_type = array_map( "filterGet", $_GET['post_type'] );
 		$query->set( '&post_type', $post_type );
-	}	
+	}
 	return $query;
 }
 //add_filter( 'pre_get_posts', 'search_in_all_custom_post_type' );
@@ -149,18 +149,16 @@ function my_get_posts( $query ) {
 // = adding extra params to url =
 // ==============================
 function addURLParameters( $url, $params ){
-	foreach( $params as $key=>$param ) {
-		$url = addURLParameter( $url, $key, $param );
-	}
+	foreach( $params as $key=>$param ) { $url = addURLParameter( $url, $key, $param ); }
 	return $url;
 }
 function addURLParameter( $url, $paramName, $paramValue ) {
-  $url_data = parse_url( $url );
-  $params = array();
-  parse_str( $url_data['query'], $params );
-  $params[$paramName] = $paramValue;   
-  $url_data['query'] = http_build_query( $params, '', '&' );
-  return build_url( $url_data );
+	$url_data = parse_url( $url );
+	$params = array();
+	parse_str( $url_data['query'], $params );
+	$params[$paramName] = $paramValue;   
+	$url_data['query'] = http_build_query( $params, '', '&' );
+	return build_url( $url_data );
 }
 
 function build_url( $url_data ){
@@ -205,7 +203,6 @@ function print_pre( $s ) {
 // ===============
 function ntz_img_uploader(){
 	// wp_enqueue_script( array("jquery", "jquery-ui-core", "jquery-ui-sortable", 'media-upload', 'thickbox') );
-	
 ?>
 	<style type="text/css" media="screen">
 	#TB_title {
@@ -215,32 +212,32 @@ function ntz_img_uploader(){
 		#TB_ajaxWindowTitle {float:left;}
 		#TB_closeAjaxWindow {float:right;}
 	#TB_overlay {
-	  height: 100%;
-	  left: 0;
-	  position: fixed;
-	  top: 0;
-	  width: 100%;
-	  z-index: 100;
+		height: 100%;
+		left: 0;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 100;
 	}
 	.TB_overlayBG {
-	  background-color: #000000;
-	  opacity: 0.70;
-	  -moz-opacity: 0.70;
-	  filter:alpha(opacity=70);
+		background-color: #000000;
+		opacity: 0.70;
+		-moz-opacity: 0.70;
+		filter:alpha(opacity=70);
 	}
 	#TB_window {
-	    -moz-box-shadow:0px 4px 30px #000;
-	    -webkit-box-shadow:0px 4px 30px #000;
-	    box-shadow:0px 4px 30px #000;
-	    background: none repeat scroll 0 0 #FFFFFF;
-	    border: 1px solid #555555;
-	    color: #000000;
-	    display: none;
-	    left: 50%;
-	    position: fixed;
-	    text-align: left;
-	    top: 50%;
-	    z-index: 102;
+			-moz-box-shadow:0px 4px 30px #000;
+			-webkit-box-shadow:0px 4px 30px #000;
+			box-shadow:0px 4px 30px #000;
+			background: none repeat scroll 0 0 #FFFFFF;
+			border: 1px solid #555555;
+			color: #000000;
+			display: none;
+			left: 50%;
+			position: fixed;
+			text-align: left;
+			top: 50%;
+			z-index: 102;
 	}
 	</style>
 	<script>
