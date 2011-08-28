@@ -101,3 +101,15 @@ function remove_menus () {
 	}
 }
 //add_action('admin_menu', 'remove_menus');
+
+
+// adding a class for custom post type
+function fb_add_body_class( $class ) {
+	$post_type = 'my_example_post_type'; // the Post Type
+	if ( get_query_var('post_type') === $post_type ) { // only, if post type is active
+		$class[] = $post_type;
+		$class[] = 'type-' . $post_type;
+	}
+	return $class;
+}
+// add_filter( 'body_class', 'fb_add_body_class' );
