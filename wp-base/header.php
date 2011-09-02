@@ -19,17 +19,25 @@
 ?></title>
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<?php
+	/*
+		 uncomment this block for native-looking app on ios devices 
+		<meta name="apple-mobile-web-app-capable" content="yes"> 
+		<link rel="apple-touch-icon" href="apple-touch-icon.png">
+	*/?>
+
 	<!-- html5 elements for ie<9 -->
 	<!--[if lte IE 8 ]> <script type="text/javascript">var htmlForIe = ["abbr" ,"article" ,"aside" ,"audio" ,"canvas" ,"details" ,"figcaption" ,"figure" ,"footer" ,"header" ,"hgroup" ,"mark" ,"meter" ,"nav" ,"output" ,"progress" ,"section" ,"summary" ,"time" ,"video"], htmlForIeLen = htmlForIe.length; for(i=0;i<htmlForIeLen;i++){ document.createElement(htmlForIe[i]); }</script> <![endif]-->
+
 <?php 
 if( is_readable( get_template_directory().'/favicon.ico' ) ){ ?>
-  
 	<link rel="shortcut icon" href="<?php echo PATH; ?>/favicon.ico">
-	
+
 <?php } ?>
 <?php if( is_readable( get_template_directory().'/apple-touch-icon.png' ) ){ ?>
 	<link rel="apple-touch-icon" href="<?php echo PATH; ?>/apple-touch-icon.png">
-	
+
 <?php } ?>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="stylesheet" type="text/css" media="all" href="<?php echo PATH ?>/css/screen.css?ver=<?php echo CSS_VERSION; ?>" />
