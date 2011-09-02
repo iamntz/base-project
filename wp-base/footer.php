@@ -1,5 +1,8 @@
-<?php global $ntz; wp_footer(); ?>
+<?php global $ntz; ?>
 
+<!-- your awesome code goes here -->
+
+<?php wp_footer(); ?>
 <!--[if lte IE 8]>
 	<script src="<?php echo PATH;?>/js/lib/selectivizr.js" type="text/javascript" charset="utf-8"></script>
 <![endif]-->
