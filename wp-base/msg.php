@@ -109,17 +109,17 @@ exit ;
 
 
 /*
-	try to determine the "dip" (pixels dropped below baseline) of this
-	font for this size.
+    try to determine the "dip" (pixels dropped below baseline) of this
+    font for this size.
 */
 function get_dip($font,$size)
 {
-	$test_chars = 'abcdefghijklmnopqrstuvwxyz' .
-			      'ABCDEFGHIJKLMNOPQRSTUVWXYZ' .
-				  '1234567890' .
-				  '!@#$%^&*()\'"\\/;.,`~<>[]{}-+_-=' ;
-	$box = @ImageTTFBBox($size,0,$font,$test_chars) ;
-	return $box[3] ;
+    $test_chars = 'abcdefghijklmnopqrstuvwxyz' .
+                  'ABCDEFGHIJKLMNOPQRSTUVWXYZ' .
+                  '1234567890' .
+                  '!@#$%^&*()\'"\\/;.,`~<>[]{}-+_-=' ;
+    $box = @ImageTTFBBox($size,0,$font,$test_chars) ;
+    return $box[3] ;
 }
 
 

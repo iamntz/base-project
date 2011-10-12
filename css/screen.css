@@ -54,7 +54,7 @@ button, input, select, textarea { margin: 0; outline: none; }
 a:link { -webkit-tap-highlight-color: #FF5E99; } 
 */
 
-::-webkit-input-placeholder	{ color:#999; }
+::-webkit-input-placeholder { color:#999; }
 input:-moz-placeholder { color:#999; }
 input[type="search"] { -webkit-appearance: textfield; }
 
@@ -97,8 +97,8 @@ h5 { font-size:1.15em; }
 h6 { font-size:1em; }
 
 #wrap {
-	width:980px;
-	margin:0 auto;
+  width:980px;
+  margin:0 auto;
 }
 
 

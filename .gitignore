@@ -33,6 +33,10 @@ cache
 .idea
 psd
 
+#sublime text project files
+*.sublime-project
+*.sublime-workspace
+
 # build script local files
 build/buildinfo.properties
 build/config/buildinfo.properties
