@@ -34,8 +34,8 @@ add_filter( 'use_default_gallery_style', '__return_false' );
 add_filter( 'show_admin_bar', '__return_false' );
 remove_action( 'personal_options', '_admin_bar_preferences' );
 
-$requres = array( 'ntz_lib', 'post_type', 'theme_settings', 'write_panels' ); // including all required libs
-foreach($requres as $required){
+$requires = array( 'ntz_lib', 'post_type', 'theme_settings', 'write_panels' ); // including all required libs
+foreach($requires as $required){
   $includeThis = 'includes/'.$required.'.php';
   require ( $includeThis );
 }
