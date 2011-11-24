@@ -57,7 +57,8 @@ git commit -a -m 'Initial Commit'
 
 git branch hotfix
 git branch release
+git branch develop
 
-git co -b develop
+
 
 echo 'Done! Enjoy!'
