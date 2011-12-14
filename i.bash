@@ -7,9 +7,10 @@ then
 	tar --strip-components=1 -zxf latest.tar.gz
 	rm latest.tar.gz
 	
+
 	echo "Theme name: "
 	read theme_name
-	cd wp-content/themes/
+	cd themes/
 	mkdir $theme_name
 	cd $theme_name
 	mkdir includes
@@ -20,7 +21,7 @@ then
 	
 	cd js/lib/
 	  wget http://code.jquery.com/jquery-latest.min.js
-	cd ../..
+
 	
 	cp -r ~/baseproject/wp-base/* .
 	
@@ -33,6 +34,7 @@ then
 	rm i.bash
 	rm README
 	rm -rf wp-base
+
 	
 else
 	cp -r ~/baseproject/* .
