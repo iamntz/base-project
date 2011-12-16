@@ -3,12 +3,16 @@
 read -p "Is WordPress? " -n 1
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
+echo ""
+echo "Theme name: "
+read theme_name
+
 curl -O http://wordpress.org/latest.tar.gz
 tar --strip-components=1 -zxf latest.tar.gz
 rm latest.tar.gz
 
-echo "Theme name: "
-read theme_name
+
+
 cd wp-content/themes/
 mkdir $theme_name
 cd $theme_name
@@ -50,9 +54,6 @@ cd js/lib/
 cd ../..
 fi
 
-
 git init
-git add .
-git commit -a -m 'Initial Commit'
 
 echo 'Done! Enjoy!'
