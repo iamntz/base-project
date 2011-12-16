@@ -54,6 +54,8 @@ cd js/lib/
 cd ../..
 fi
 
+rm baseproject.sublime-*
+
 git init
 
 echo 'Done! Enjoy!'
