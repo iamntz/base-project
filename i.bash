@@ -35,7 +35,7 @@ touch footer.php
 
 rm -rf .git
 rm i.bash
-rm README
+rm readme.md
 rm -rf wp-base
 
 else
@@ -44,7 +44,7 @@ cp -r ~/baseproject//.[a-zA-Z0-9]* .
 
 rm -rf .git
 rm i.bash
-rm README
+rm readme.md
 
 rm functions.php
 rm -rf wp-base

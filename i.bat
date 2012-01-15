@@ -135,6 +135,6 @@ cd %PWD%
 
 if exist %template_folder%\i.bash rm %template_folder%\i.bash
 if exist %template_folder%\i.bat rm %template_folder%\i.bat
-if exist %template_folder%\README rm %template_folder%\README
+if exist %template_folder%\readme.md rm %template_folder%\readme.md
 
 GOTO %redirect%
