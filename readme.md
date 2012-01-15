@@ -9,7 +9,7 @@ So I created a quick bash script with all the stuff I need.
 I created two ways of using this: one should be cross platform (bash) and the other one is windows(7) only.
 
 
-*Bash/Cygwin Way*
+### Bash/Cygwin Way
 You just need to copy `baseproject` in your home directory and make a SymLink of i.bash to home directory.
 To do so, in opne a bash prompt and type:
 
@@ -25,7 +25,7 @@ in a cygwin console.
 All files are created.
 
 
-*Windows*
+### Windows
 This is tested _only_ on win7 with powershell installed. This means that I used some commands that _may_ be unavailable by default.
 All you need is to copy `i.bat` to `c:\windows` as `baseproject.bat` (or any other name that suits you). 
 Then, in a cmd or powershell window, just type `baseproject` (or the name you picked) when you are in your project directory.
