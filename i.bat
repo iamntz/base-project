@@ -94,6 +94,73 @@ xcopy wp-base\* . /e
 rm -rf wp-base
 del basefile.php
 
+mkdir plugins
+cd plugins
+
+cls
+echo. installing plugins
+
+svn checkout http://plugins.svn.wordpress.org/debug-bar/trunk/ debug-bar
+cd debug-bar
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/wordpress-seo/trunk/ wordpress-seo
+cd wordpress-seo
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/wp-pagenavi/trunk/ wp-pagenavi
+cd wp-pagenavi
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/contact-form-7/trunk/ contact-form-7
+cd contact-form-7
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/wp-db-backup/trunk/ wp-db-backup
+cd wp-db-backup
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/automatic-wordpress-backup/trunk/ automatic-wordpress-backup
+cd automatic-wordpress-backup
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/custom-post-type-archives/trunk/ custom-post-type-archives
+cd custom-post-type-archives
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/regenerate-thumbnails/trunk/ regenerate-thumbnails
+cd regenerate-thumbnails
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/wp-maintenance-mode/trunk/ wp-maintenance-mode
+cd wp-maintenance-mode
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/w3-total-cache/trunk/ w3-total-cache
+cd w3-total-cache
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/wp-super-cache/trunk/ wp-super-cache
+cd wp-super-cache
+rm -rf .svn
+cd ..
+
+REM svn checkout http://plugins.svn.wordpress.org/jetpack/trunk/ jetpack
+REM cd jetpack
+REM rm -rf .svn
+REM cd ..
+
+
 
 cls
 echo.
