@@ -1,13 +1,69 @@
 <?php 
+
+/* USAGE:
+
+  $fields = array(
+    array(
+      "type"  => "checkbox",
+      "label" => "check this out!",
+      "name"  => "_checbox_name",
+      "help"  => "small checkbox help"
+    ),
+
+    array(
+      "type"  => "select",
+      "label" => "select demo",
+      "name"  => "_select_demo",
+      "opts"  => array("option 1", "option 2"), 
+      "sel"   => "option 1", // selected
+      "help"  => "small select help"
+    ),
+
+    array(
+      "type"  => "text", // you can use all text based inputs (text, email, url, etc)
+      "label" => "just a normal text input",
+      "name"  => "_input_text_demo",
+      "value" => "default value",
+      "help"  => ""//no help
+    )
+  );
+
+
+  // usage: 
+  $destinationSettingsMeta = new Ntz_Meta_box_builder(array(
+    "fields"     => $fields,
+    "post_type"  => array( 'post' ), // array of post types: post, page or any other custom post type
+    "meta_title" => 'Meta box title',
+    "meta_id"    => "metabox id", // useful for styling
+    "position"   => "side", // normal/side/advanced
+    "priority"   => "high" // high/core/default/low
+    "meta_callback" => "custom_post_meta_calback"
+    "save_callback" => "custom_post_meta_save_callback"
+  ));
+
+  add_action( 'custom_post_meta_calback', "add_some_extra_awesomeness" );
+  function add_some_extra_awesomeness(){
+    // extra code that will be executed at the end of metabox 
+  } // add_some_extra_awesomeness
+
+  add_action( 'custom_post_meta_save_callback', "add_some_extra_awesomeness_save" );
+  function add_some_extra_awesomeness_save(){
+    // extra code that will be executed after the metabox save
+  } // add_some_extra_awesomeness_save
+
+*/
+
 /**
 * custom meta boxes builder
 */
 class Ntz_Meta_box_builder extends Ntz_utils{
   private $options;
+
+
   function __construct( $user_options ){
     $this->options = array_merge( array(
       "fields"        => array(),
-      "post_type"     => 'post',
+      "post_type"     => array( 'post' ),
       "meta_title"    => 'meta box',
       "meta_id"       => "meta_id",
       "position"      => "normal",
@@ -18,16 +74,24 @@ class Ntz_Meta_box_builder extends Ntz_utils{
     add_action( 'admin_init', array( &$this, 'meta_init' ) );
     add_action( 'save_post', array( &$this, 'save_meta' ) );
   }
+
+
   public function meta_init(){
-    add_meta_box( 
-      $this->options['meta_id'],
-      $this->options['meta_title'],
-      array( &$this, 'add_meta' ),
-      $this->options['post_type'],
-      $this->options['position'],
-      $this->options['priority']
-    );
+    if( is_array( $this->options['post_type'] ) ){
+      foreach ( $this->options['post_type'] as $post_type ) {
+        add_meta_box( 
+          $this->options['meta_id'],
+          $this->options['meta_title'],
+          array( &$this, 'add_meta' ),
+          $post_type,
+          $this->options['position'],
+          $this->options['priority']
+        );
+      }
+    }
   } // init
+
+
   public function add_meta( $post_data, $meta_info ){
     $post_id = $post_data->ID;
     if( is_array( $this->options['fields'] ) && count( $this->options['fields'] ) > 0 ){
@@ -125,6 +189,7 @@ class Ntz_Meta_box_builder extends Ntz_utils{
     do_action( $this->options['meta_callback'] );
     echo '<input type="hidden" name="ntz_do" value="save:custom_metaboxes"/>';
   } // add_meta
+
 
   public function save_meta( $post_id ){
     if( !empty( $_REQUEST['ntz_do'] ) && stripos( $_REQUEST['ntz_do'], 'custom_metaboxes' ) >= 0 ){
