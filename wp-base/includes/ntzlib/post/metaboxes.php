@@ -20,7 +20,7 @@
     ),
 
     array(
-      "type"  => "text", // you can use all text based inputs (text, email, url, etc)
+      "type"  => "text", // you can use all text based inputs (text, email, url, etc) also, you can use file and colorpicker
       "label" => "just a normal text input",
       "name"  => "_input_text_demo",
       "value" => "default value",
@@ -179,6 +179,15 @@ class Ntz_Meta_box_builder extends Ntz_utils{
               value=\"" . (int)$value . "\"
               class='ntzUploadTarget' />
               <span class='uploadTrigger button-secondary'>upload</span>
+              ";
+          break; // default
+
+          case "colorpicker":
+            $field = "
+              <input {$extra_attr} type='text' 
+              name='{$single_field['name']}' id='{$single_field['name']}' 
+              value=\"" . esc_attr( $value ) . "\"
+              class='ntz_colorpicker' />
               ";
           break; // default
 

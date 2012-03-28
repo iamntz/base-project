@@ -47,11 +47,16 @@ class Ntz_utils{
    *  @return void 
    */
   public function style_and_scripts(){
-    wp_register_style( "ntz_admin_css", "{$this->lib_path}/css/admin.css", '', '1.0', 'all' );
+    wp_register_style( "ntz_admin_color_picker_css", "{$this->lib_path}/js/colorpicker/css/colorpicker.css", '', '1.0', 'all' );
+    
+    wp_register_style( "ntz_admin_css", "{$this->lib_path}/css/admin.css", array('ntz_admin_color_picker_css'), '1.0', 'all' );
+
+    wp_register_script( "ntz_admin_color_picker_js", "{$this->lib_path}/js/colorpicker/js/colorpicker.js",  array("jquery"),  1, 1);
 
     wp_register_script( "ntz_admin_js", "{$this->lib_path}/js/admin.js", 
       array("jquery", "jquery-ui-core", 
-        "jquery-ui-sortable", 'media-upload', 'thickbox'), 
+        "jquery-ui-sortable", "media-upload", 
+        "thickbox", "ntz_admin_color_picker_js"), 
       1, 1);
 
     if( is_admin() ){

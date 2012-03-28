@@ -1,4 +1,34 @@
 jQuery(document).ready(function($){
+
+  $('.ntz_colorpicker').each(function(){
+    var color = $(this);
+    color.css({
+      backgroundColor:'#'+color.val(),
+      color          :'#'+color.val()
+    });
+
+    color.ColorPicker({
+      color:color.val(),
+      livePreview:true,
+      onChange: function(hsb, hex, rgb, el) {
+        color.val(hex).css({
+          backgroundColor:'#'+hex,
+          color          :'#'+hex
+          //color: ( ( rgb.r + rgb.g + rgb.b) <= 381 ? '#fff' : '#000' )
+        });
+        
+      },
+      onBeforeShow: function () {
+        $(this).ColorPickerSetColor(this.value);
+      }
+    }).bind('keyup', function(){
+      $(this).ColorPickerSetColor(this.value);
+    });
+    
+  });
+
+
+
   $('.uploadTrigger').live('click', function(){
     var t = $(this),
         p = t.parent(),

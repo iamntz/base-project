@@ -17,6 +17,7 @@ if ( !function_exists('ntz_setup') ){
     add_editor_style(); // Default: editor-style.css 
 
     add_theme_support( 'post-thumbnails' );
+    //add_image_size( $name, $width, $height, $crop ); 
     add_post_type_support( 'page', 'excerpt' );
     add_theme_support( 'automatic-feed-links' );
 
