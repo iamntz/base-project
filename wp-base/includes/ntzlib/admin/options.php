@@ -1,33 +1,112 @@
 <?php 
 
-/* example usage:
+/*
+ *  Class usage:
 
-// this MUST be called on `admin_init`
+class Admin_options extends Ntz_utils{
+  protected $main_settings, $social_settings, $home_slider, $current_lang;
+  function __construct( $reconstruct = false ){
+    parent::__construct($reconstruct);
 
-$social_settings = new Ntz_settings(array(
-   "group" => "social_settings",
-   "name"  => "social_settings",
-   "save"  => null
- ));
+    // if you are using wpml plugin, this is useful to have different configs based on language
+    $this->current_lang = ( defined( ICL_LANGUAGE_CODE ) ? ICL_LANGUAGE_CODE : 'en' );
 
-// this can be called as submenu callback
-$social_settings->form_builder(array(
- "title"        => "Social Networks Settings",
- "section_name" => "social_settings",
- "fields"       => array(
-   array(
-     "label" => "Twitter Username:",
-     "type"  => "text",
-     "name"  => "twitter_user"
-   ),
-   array(
-     "label" => "page selector",
-     "type"  => "page_selector",
-     "name"  => "some_page"
-   )
- )
-));
+    add_action( 'admin_menu', array( &$this, 'add_menus' ) );
+    add_action( 'admin_init', array( &$this, 'settings_init' ) );
+  }
+
+  public function add_menus(){
+
+    // main menu entry
+    add_menu_page( 'Site Settings', 'Site Settings', 'edit_themes', 'menu_id', 
+      array( &$this, 'settings_main' ), PATH.'/images/settings_logo.png' ); // 16x16px image
+      
+      // submenus
+      add_submenu_page( 'menu_id', 'Social Networks', 'Social Networks', 'edit_themes', 
+      'settings_social_networks', array( &$this, 'settings_social_networks' ) );
+  } // add_menus
+
+  public function settings_init(){
+
+    $this->social_settings = new Ntz_settings(array(
+      "group" => "settings_social_networks_".$this->current_lang,
+      "name"  => "settings_social_networks_".$this->current_lang,
+      "save"  => null
+    ));
+
+    $this->general_settings = new Ntz_settings(array(
+      "group" => "general_settings_".$this->current_lang,
+      "name"  => "general_settings_".$this->current_lang,
+      "save"  => null
+    ));
+
+  } // settings_init
+
+  public function settings_main(){
+    $current_lang = $this->current_lang;
+    $this->general_settings->form_builder(array(
+      "title"         => "Pages",
+      "section_name"  => "general_settings_{$current_lang}",
+      "fields"        => array(
+        array(
+          "type"  => "hidden",
+          "name"  => "lang",
+          "value" => $current_lang
+        ),
+        array(
+          "label" => "Sample Page",
+          "type"  => "page_selector",
+          "name"  => "sample_page",
+          "desc"  => "Lorem ipsum"
+        ),
+        array(
+          "label" => "Sample field",
+          "type"  => "text",
+          "name"  => "sample_field",
+          "attr"  => array(
+            "placeholder" => "Sample Field"
+          )
+        )
+      )
+    ));
+  } // settings_main
+
+  public function settings_social_networks(){
+    $current_lang = $this->current_lang;
+    $this->social_settings->form_builder(array(
+      "title"         => "Social Networks",
+      "section_name"  => "social_settings_{$current_lang}",
+      "fields"        => array(
+        array(
+          "label" => "Twitter URL",
+          "type"  => "text",
+          "name"  => "twitter"
+        ),
+        array(
+          "label" => "Facebook URL",
+          "type"  => "text",
+          "name"  => "facebook"
+        )
+      )
+    ));
+  } // settings_social_networks
+}
+
+$ntz_settings = new Admin_options();
+
+
+// getting the options
+// Add this in functions.php:
+
+global $ntz;
+$current_lang   = ( defined( ICL_LANGUAGE_CODE ) ? ICL_LANGUAGE_CODE : 'en' );
+$ntz['general'] = get_option( "general_settings_{$current_lang}" );
+$ntz['social']  = get_option( "general_settings_{$current_lang}" );
+
 */
+
+
+
 /**
  * Utility class for setting & getting custom settings
  * @param array $options the settings group & settings name.
@@ -95,6 +174,7 @@ class Ntz_settings extends Ntz_utils{
   <div class="wrap">
     <h2><?php echo $options['title']; ?></h2>
     <form action="options.php?lang=<?php echo $_REQUEST['lang']; ?>" method="post" class="ntzForm">
+      <table class="form-table">
       <?php 
         settings_errors();
         settings_fields( $this->options['group'] );
@@ -111,6 +191,13 @@ class Ntz_settings extends Ntz_utils{
           //$value         = stripslashes( str_replace( "\n\"", "__NEW_LINE__", $stored_options[$field['name']] ) );
           $value =  preg_replace('/[\r\n]+/', "", $stored_options[$field['name']] )  ;
           //$value         = str_replace( "__NEW_LINE__", "", $stored_options[$field['name']] );
+
+          if( $field['type'] != 'hidden' ){
+            echo "<tr>\n<th scope='row'><label>{$field['label']}</label></th>\n";
+          }else {
+            echo "<tr class='hidden_field'>\n";
+          }
+
           if( empty( $value ) ){
             $value = $default_value;
           }
@@ -120,22 +207,18 @@ class Ntz_settings extends Ntz_utils{
           }
 
           if( $field['type'] == 'info' ){
-            echo "<p>{$field['text']}</p>";
+            echo "<td colspan='2' class='wide_row'>{$field['text']}</td>\n";
             continue;
-          }
-
-          if( $field['type'] != 'hidden' ){
-            echo "<p><label>{$field['label']}</label>";
           }
 
           $extra_attr = '';
 
           if( is_array( $field['attr'] ) ) {
             foreach ( $field['attr'] as $key => $attr ) {
-              $extra_attr .= $key . '=' . $attr;
+              $extra_attr .= " {$key}='{$attr}'";
             }
           }
-
+          echo "<td>";
           switch( $field['type'] ){
             case "page_selector":
               echo $this->list_pages( $name, $value );
@@ -147,14 +230,18 @@ class Ntz_settings extends Ntz_utils{
               echo "<input type='{$field['type']}' name='{$name}' value='{$value}' {$extra_attr} />";
             break;
           }
-          echo "\n\n";
         }
+        if( !empty( $field['desc'] ) ){
+          echo "<br/><span class='description'>{$field['desc']}</span>";
+        }
+        echo "</td>\n";
 
         if( $options['after_fields'] ){
           do_action( $options['after_fields'] );
         }
 
      ?>
+   </table>
       <p><input name="Submit" type="submit" value="Save Changes" class="button-primary" /></p>
     </form>
   </div>
