@@ -34,7 +34,12 @@ add_filter( 'use_default_gallery_style', '__return_false' );
 add_filter( 'show_admin_bar', '__return_false' );
 remove_action( 'personal_options', '_admin_bar_preferences' );
 
-$requires = array( 'ntz_lib', 'post_type', 'theme_settings', 'write_panels' ); // including all required libs
+$requires = array( 'ntz_lib', 'ntzlib/lib', 'post_type' ); // including all required libs
+
+if( is_admin() ){
+  $requires = array_merge( $requires, array( 'write_panels', 'theme_settings' ) );
+}
+
 foreach($requires as $required){
   $includeThis = 'includes/'.$required.'.php';
   require ( $includeThis );
