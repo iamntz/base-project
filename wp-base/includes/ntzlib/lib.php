@@ -28,16 +28,68 @@ if( is_array( $ntz_lib_includes ) ){
 */
 
 class Ntz_utils{
-  protected $wpdb;
+  protected $wpdb, $lib_path;
   function __construct( $init = true ){
     global $wpdb;
     $this->wpdb = $wpdb;
+    $this->path = PATH;
 
-    if( $init ){
-
+    $this->lib_path = $this->path.'/includes/ntzlib';
+    if( !$init ){
+      add_action( 'admin_init', array( &$this, 'style_and_scripts' ) );
     }
+    add_action( 'wp_ajax_get_image_versions', array( &$this, 'get_image_versions' ) );
   }
 
+  /**
+   *  A loader for all scripts & styles used across site
+   *  
+   *  @return void 
+   */
+  public function style_and_scripts(){
+    wp_register_style( "ntz_admin_css", "{$this->lib_path}/css/admin.css", '', '1.0', 'all' );
+
+    wp_register_script( "ntz_admin_js", "{$this->lib_path}/js/admin.js", 
+      array("jquery", "jquery-ui-core", 
+        "jquery-ui-sortable", 'media-upload', 'thickbox'), 
+      1, 1);
+
+    if( is_admin() ){
+      wp_enqueue_style( 'ntz_admin_css' );
+      wp_enqueue_script( 'ntz_admin_js' );
+    }
+    // wpml is active?
+    //if( ICL_LANGUAGE_CODE ){ add_action( 'wp_title' , array( &$this, 'remove_language_suffix' ) ); }
+  
+  } // style_and_scripts
+
+
+  /**
+   *  get all versions of an image as an array
+   *  
+   *  @param  integer $image_id the image id
+   *  @param  boolean $echo  either we are displaying (AJAX) or not the images
+   *  
+   *  @return void|array
+   */
+  public function get_image_versions( $image_id = 0, $echo = true ){
+    $sizes = get_intermediate_image_sizes();
+    $images = Array();
+    $img_id = ( (int)$image_id > 0 ? $image_id : (int)$_REQUEST['img_id'] );
+    if( is_array( $sizes ) ){
+      foreach ( $sizes as $key => $size ) {
+        $image_sized = wp_get_attachment_image( $img_id, $size );
+        $images[$size] = $image_sized;
+      }
+    }
+
+    if( $echo ){
+      echo json_encode( $images );
+      die();
+    }else{
+      return $images;
+    }
+  } // get_image_versions
 
   /**
    * A function that allows StdObjects (like terms, posts and so on )

@@ -1,0 +1,13 @@
+.ntz_meta_row {
+  margin-bottom:10px;
+}
+  .ntz_meta_row label {
+    display:block;
+    margin:5px 0;
+  }
+  .ntz_meta_row .upload_preview,
+  .ntz_meta_row .uploadTrigger  {
+    display:block;
+    text-align:center;
+    margin:10px 0;
+  }

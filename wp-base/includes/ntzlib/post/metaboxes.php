@@ -108,7 +108,7 @@ class Ntz_Meta_box_builder extends Ntz_utils{
           $maybe_value = unserialize( $value );
         }
 
-        echo "<p>";
+        echo "<div class='ntz_meta_row'>";
           echo "<input type='hidden' name='ntz_custom_meta_nonce_{$single_field['name']}' value='" .  wp_create_nonce( "ntz_custom_meta_nonce_{$single_field['name']}" ) . "' />";
 
 
@@ -170,6 +170,18 @@ class Ntz_Meta_box_builder extends Ntz_utils{
             $field = "<textarea {$extra_attr} name='{$single_field['name']}' id='{$single_field['name']}' class='widefat'>{$value}</textarea>";
           break;
 
+          case "file":
+            $preview = ( (int)$value > 0 ? wp_get_attachment_image( (int)$value, 'thumbnail' ) : '' );
+            $field = "
+              <div class='upload_preview'>{$preview}</div>
+              <input {$extra_attr} type='hidden' 
+              name='{$single_field['name']}' id='{$single_field['name']}' 
+              value=\"" . (int)$value . "\"
+              class='ntzUploadTarget' />
+              <span class='uploadTrigger button-secondary'>upload</span>
+              ";
+          break; // default
+
           default: // input
             $field = "<input {$extra_attr} type='{$single_field['type']}' 
               name='{$single_field['name']}' id='{$single_field['name']}' 
@@ -183,7 +195,7 @@ class Ntz_Meta_box_builder extends Ntz_utils{
           if( !empty( $single_field['help'] ) ){ // we don't want random 'br' tags
             echo "<br/><small>{$single_field['help']}</small>";
           }
-        echo "</p>";
+        echo "</div>";
       }
     }
     do_action( $this->options['meta_callback'] );
@@ -193,7 +205,7 @@ class Ntz_Meta_box_builder extends Ntz_utils{
 
   public function save_meta( $post_id ){
     if( !empty( $_REQUEST['ntz_do'] ) && stripos( $_REQUEST['ntz_do'], 'custom_metaboxes' ) >= 0 ){
-      $ntz_do = explode( ':', filterGet( $_REQUEST['ntz_do'] ) );
+      $ntz_do = explode( ':', $this->clean( $_REQUEST['ntz_do'] ) );
     }
     if( $ntz_do[0] == 'save' && $ntz_do[1] == 'custom_metaboxes' ){
 
