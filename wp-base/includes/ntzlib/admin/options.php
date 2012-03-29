@@ -230,9 +230,10 @@ class Ntz_settings extends Ntz_utils{
               echo "<input type='{$field['type']}' name='{$name}' value='{$value}' {$extra_attr} />";
             break;
           }
-        }
-        if( !empty( $field['desc'] ) ){
-          echo "<br/><span class='description'>{$field['desc']}</span>";
+
+          if( !empty( $field['desc'] ) ){
+            echo "<br/><span class='description'>{$field['desc']}</span>";
+          }
         }
         echo "</td>\n";
 
