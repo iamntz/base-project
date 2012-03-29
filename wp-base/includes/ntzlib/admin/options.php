@@ -186,11 +186,9 @@ class Ntz_settings extends Ntz_utils{
         }
 
         foreach ( $options['fields'] as $key => $field ) {
-          $name          = $this->options['name']."[{$field['name']}]";
-          $default_value = $field['value'];
-          //$value         = stripslashes( str_replace( "\n\"", "__NEW_LINE__", $stored_options[$field['name']] ) );
-          $value =  preg_replace('/[\r\n]+/', "", $stored_options[$field['name']] )  ;
-          //$value         = str_replace( "__NEW_LINE__", "", $stored_options[$field['name']] );
+          $name    = $this->options['name']."[{$field['name']}]";
+          $default = $field['default'];
+          $value   = $field['value'];
 
           if( $field['type'] != 'hidden' ){
             echo "<tr>\n<th scope='row'><label>{$field['label']}</label></th>\n";
@@ -199,7 +197,7 @@ class Ntz_settings extends Ntz_utils{
           }
 
           if( empty( $value ) ){
-            $value = $default_value;
+            $value = $default;
           }
 
           if( $field['type'] != 'textarea' ){
