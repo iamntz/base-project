@@ -28,7 +28,13 @@ jQuery(document).ready(function($){
   });
 
 
-
+  $( '.upload_preview' ).live('dblclick', function(){
+    var t = $(this);
+    if( confirm( "Remove Image?" ) ){
+      t.empty();
+      t.parent().find('.ntzUploadTarget').val('');
+    }
+  })
   $('.uploadTrigger').live('click', function(){
     var t = $(this),
         p = t.parent(),
@@ -79,7 +85,6 @@ jQuery(document).ready(function($){
           action : 'get_image_versions',
           img_id : ntzUploadTargetId.val()
         }, function(json){
-          console.log(json);
           $( '.upload_preview', p ).empty().append( json.thumbnail );
         } );
 

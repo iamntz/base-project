@@ -173,7 +173,7 @@ class Ntz_Meta_box_builder extends Ntz_utils{
           case "file":
             $preview = ( (int)$value > 0 ? wp_get_attachment_image( (int)$value, 'thumbnail' ) : '' );
             $field = "
-              <div class='upload_preview'>{$preview}</div>
+              <div class='upload_preview' title='Double click to remove'>{$preview}</div>
               <input {$extra_attr} type='hidden' 
               name='{$single_field['name']}' id='{$single_field['name']}' 
               value=\"" . (int)$value . "\"
