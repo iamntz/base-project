@@ -187,7 +187,7 @@ class Ntz_Meta_box_builder extends Ntz_utils{
               <input {$extra_attr} type='text' 
               name='{$single_field['name']}' id='{$single_field['name']}' 
               value=\"" . esc_attr( $value ) . "\"
-              class='ntz_colorpicker' />
+              class='ntz_colorpicker' autocomplete='off' />
               ";
           break; // default
 
