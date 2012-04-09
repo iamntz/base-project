@@ -136,7 +136,6 @@ class Ntz_settings extends Ntz_utils{
     if( is_array( $inputs ) ){
       foreach ( $inputs as $key => $input ) {
         $return[$key] = $this->clean( $input );
-        
       }
     }else{
       $return = $this->clean( $inputs );
@@ -188,7 +187,7 @@ class Ntz_settings extends Ntz_utils{
         foreach ( $options['fields'] as $key => $field ) {
           $name    = $this->options['name']."[{$field['name']}]";
           $default = $field['default'];
-          $value   = $field['value'];
+          $value   = $stored_options[$field['name']];
 
           if( $field['type'] != 'hidden' ){
             echo "<tr>\n<th scope='row'><label>{$field['label']}</label></th>\n";
@@ -257,7 +256,6 @@ class Ntz_settings extends Ntz_utils{
    */
   public function list_pages( $select_name = null, $value = 0, $default_text = ' -- Select an Option --' ){
     if( !$select_name ){ return; }
-
     $all_pages = get_pages( 0 );
     $ret       = '<select name="' . $select_name . '" id="' . $select_name . '"><option>' . $default_text . '</option>';
 
