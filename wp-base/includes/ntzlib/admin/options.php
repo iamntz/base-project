@@ -226,6 +226,17 @@ class Ntz_settings extends Ntz_utils{
             case "textarea":
               echo "<textarea name='{$name}' {$extra_attr}>{$value}</textarea>";
             break;
+            case "select":
+              echo "<select name='{$name}' {$extra_attr}>";
+                foreach( $field['opts'] as $option_key => $option ){
+                  $selected = '';
+                  if( $option_key == $value ){
+                    $selected =' selected="selected"';
+                  }
+                  echo "<option value='{$option_key}' {$selected}>{$option}</option>";
+                }
+              echo "</select>";
+            break;
             default:
               echo "<input type='{$field['type']}' name='{$name}' value='{$value}' {$extra_attr} />";
             break;
