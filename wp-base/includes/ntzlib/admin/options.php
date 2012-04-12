@@ -223,9 +223,23 @@ class Ntz_settings extends Ntz_utils{
             case "page_selector":
               echo $this->list_pages( $name, $value );
             break;
+
             case "textarea":
               echo "<textarea name='{$name}' {$extra_attr}>{$value}</textarea>";
             break;
+
+            case "file":
+              $preview = ( (int)$value > 0 ? wp_get_attachment_image( (int)$value, 'thumbnail' ) : '' );
+              echo "
+                <div class='upload_preview' title='Double click to remove'>{$preview}</div>
+                <input {$extra_attr} type='hidden' 
+                name='{$name}' id='{$name}' 
+                value='{$value}'
+                class='ntzUploadTarget' />
+                <span class='uploadTrigger button-secondary'>upload</span>
+                ";
+            break; // default
+
             case "select":
               echo "<select name='{$name}' {$extra_attr}>";
                 foreach( $field['opts'] as $option_key => $option ){
@@ -237,6 +251,7 @@ class Ntz_settings extends Ntz_utils{
                 }
               echo "</select>";
             break;
+
             default:
               echo "<input type='{$field['type']}' name='{$name}' value='{$value}' {$extra_attr} />";
             break;
