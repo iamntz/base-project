@@ -13,3 +13,16 @@
     text-align:center;
     margin:10px 0;
   }
+
+.ntzRestoreDefault {
+  text-decoration:none;
+  font-weight:700;
+  font-size:18px;
+  color:#999;
+  display:inline-block;
+  vertical-align:middle;
+  margin-left:5px;
+}
+.ntzRestoreDefault:hover {
+  color:#c00;
+}

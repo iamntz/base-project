@@ -34,7 +34,8 @@ jQuery(document).ready(function($){
       t.empty();
       t.parent().find('.ntzUploadTarget').val('');
     }
-  })
+  });
+
   $('.uploadTrigger').live('click', function(){
     var t = $(this),
         p = t.parent(),
@@ -94,4 +95,17 @@ jQuery(document).ready(function($){
     return false;
   });
 
+
+  $('.ntzRestoreDefault').click(function(){
+    var t     = $(this),
+        field = t.prev(),
+        type  = field[0].tagName.toLowerCase();
+    if( type == 'select' ){
+      $('option', field).filter( function(){ return this.value == t.data('default'); }).attr('selected', true);
+    }else{
+      field.val( t.data('default') );
+    }
+    t.hide();
+    return false;
+  })
 });

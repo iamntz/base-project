@@ -135,10 +135,10 @@ class Ntz_settings extends Ntz_utils{
     }
     if( is_array( $inputs ) ){
       foreach ( $inputs as $key => $input ) {
-        $return[$key] = $this->clean( $input );
+        $return[$key] = ( $this->clean( $input ) == '' ? null : $this->clean( $input ) );
       }
     }else{
-      $return = $this->clean( $inputs );
+      $return = ( $this->clean( $inputs ) == '' ? null : $this->clean( $inputs ) );
     }
 
     return $return;
@@ -195,9 +195,12 @@ class Ntz_settings extends Ntz_utils{
             echo "<tr class='hidden_field'>\n";
           }
 
-          if( empty( $value ) ){
+          if( empty( $value ) && !is_null( $value ) ){
             $value = $default;
           }
+
+          $default = esc_attr( $field['default'] );
+          $value   = esc_attr( $stored_options[$field['name']] );
 
           if( $field['type'] != 'textarea' ){
             $value = esc_attr( $value );
@@ -228,6 +231,9 @@ class Ntz_settings extends Ntz_utils{
             break;
           }
 
+          if( isset( $default ) && !empty( $default ) && $default != $value ){
+            echo "<a href='#' title='Restore to defaults' class='ntzRestoreDefault' data-default='{$default}'>&#10226;</a>";
+          }
           if( !empty( $field['desc'] ) ){
             echo "<br/><span class='description'>{$field['desc']}</span>";
           }
