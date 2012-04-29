@@ -1,5 +1,4 @@
 var _Ntz = function(){
-  
   this.init();
 };
 
@@ -7,8 +6,9 @@ _Ntz.prototype = {
   init : function(){
     var $t = this;
     $t.enablePlaceholderSupport();
-  }, // init
-  enablePlaceholderSupport : function(wrap){
+  } // init
+
+  ,enablePlaceholderSupport : function(wrap){
     var $                  = jQuery,
         wrap               = wrap || 'body',
         fakeInput          = document.createElement("input"),
@@ -35,7 +35,6 @@ _Ntz.prototype = {
 };
 
 jQuery(document).ready(function($){
-  $('html').removeClass('no-js');
   var _ntz = new _Ntz();
 });
 
