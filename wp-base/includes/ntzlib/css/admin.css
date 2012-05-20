@@ -26,3 +26,12 @@
 .ntzRestoreDefault:hover {
   color:#c00;
 }
+
+.ntzForm {
+
+} 
+  .ntzForm .upload_preview {
+    display:inline-block;
+    vertical-align:middle;
+    margin-left:10px;
+  }

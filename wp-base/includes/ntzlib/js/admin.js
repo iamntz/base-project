@@ -81,12 +81,12 @@ jQuery(document).ready(function($){
         if(typeof(oldSendToEditor)=='function') { 
           window.send_to_editor = oldSendToEditor;
         }
-        console.log(ajaxurl);
         $.getJSON( ajaxurl, {
           action : 'get_image_versions',
           img_id : ntzUploadTargetId.val()
         }, function(json){
-          $( '.upload_preview', p ).empty().append( json.thumbnail );
+          var img_size = $( '.upload_preview', p ).data('imgsize');
+          $( '.upload_preview', p ).empty().append( json[img_size] );
         } );
 
       };

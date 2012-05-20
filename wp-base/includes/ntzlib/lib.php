@@ -32,7 +32,7 @@ class Ntz_utils{
   function __construct( $init = true ){
     global $wpdb;
     $this->wpdb = $wpdb;
-    $this->path = PATH;
+    $this->path = THEME_PATH;
 
     $this->lib_path = $this->path.'/includes/ntzlib';
     if( !$init ){
@@ -49,7 +49,7 @@ class Ntz_utils{
   public function style_and_scripts(){
     wp_register_style( "ntz_admin_color_picker_css", "{$this->lib_path}/js/colorpicker/css/colorpicker.css", '', '1.0', 'all' );
     
-    wp_register_style( "ntz_admin_css", "{$this->lib_path}/css/admin.css", array('ntz_admin_color_picker_css'), '1.0', 'all' );
+    wp_register_style( "ntz_admin_css", "{$this->lib_path}/css/admin.css", array( 'ntz_admin_color_picker_css', 'media', 'thickbox' ), '1.0', 'all' );
 
     wp_register_script( "ntz_admin_color_picker_js", "{$this->lib_path}/js/colorpicker/js/colorpicker.js",  array("jquery"),  1, 1);
 
@@ -63,9 +63,7 @@ class Ntz_utils{
       wp_enqueue_style( 'ntz_admin_css' );
       wp_enqueue_script( 'ntz_admin_js' );
     }
-    // wpml is active?
-    //if( ICL_LANGUAGE_CODE ){ add_action( 'wp_title' , array( &$this, 'remove_language_suffix' ) ); }
-  
+
   } // style_and_scripts
 
 

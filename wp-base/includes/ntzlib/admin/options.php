@@ -168,11 +168,12 @@ class Ntz_settings extends Ntz_utils{
       "after_fields"  => null,
       "fields"        => array()
     ), $options );
+    $lang = !empty( $_REQUEST['lang'] ) ? $_REQUEST['lang'] : 'en';
     ?>
 
   <div class="wrap">
     <h2><?php echo $options['title']; ?></h2>
-    <form action="options.php?lang=<?php echo $_REQUEST['lang']; ?>" method="post" class="ntzForm">
+    <form action="options.php?lang=<?php echo $lang; ?>" method="post" class="ntzForm">
       <table class="form-table">
       <?php 
         settings_errors();
@@ -186,11 +187,11 @@ class Ntz_settings extends Ntz_utils{
 
         foreach ( $options['fields'] as $key => $field ) {
           $name    = $this->options['name']."[{$field['name']}]";
-          $default = $field['default'];
-          $value   = $stored_options[$field['name']];
+          $default = !empty( $field['default'] ) ? $field['default'] : '';
+          $value   = !empty( $stored_options[$field['name']] ) ? $stored_options[$field['name']] : null;
 
           if( $field['type'] != 'hidden' ){
-            echo "<tr>\n<th scope='row'><label>{$field['label']}</label></th>\n";
+            echo "<tr>\n<th scope='row'><label>" . ( !empty( $field['label'] ) ? $field['label'] : '' ) ."</label></th>\n";
           }else {
             echo "<tr class='hidden_field'>\n";
           }
@@ -199,8 +200,8 @@ class Ntz_settings extends Ntz_utils{
             $value = $default;
           }
 
-          $default = esc_attr( $field['default'] );
-          $value   = esc_attr( $stored_options[$field['name']] );
+          $default = esc_attr( $default );
+          $value   = esc_attr( $value );
 
           if( $field['type'] != 'textarea' ){
             $value = esc_attr( $value );
@@ -213,7 +214,7 @@ class Ntz_settings extends Ntz_utils{
 
           $extra_attr = '';
 
-          if( is_array( $field['attr'] ) ) {
+          if( isset( $field['attr'] ) && is_array( $field['attr'] ) && count( $field['attr'] ) > 0 ) {
             foreach ( $field['attr'] as $key => $attr ) {
               $extra_attr .= " {$key}='{$attr}'";
             }
@@ -229,14 +230,15 @@ class Ntz_settings extends Ntz_utils{
             break;
 
             case "file":
-              $preview = ( (int)$value > 0 ? wp_get_attachment_image( (int)$value, 'thumbnail' ) : '' );
+              $img_size = isset( $field['preview_size'] ) ? $field['preview_size'] : 'thumbnail';
+              $preview  = ( (int)$value > 0 ? wp_get_attachment_image( (int)$value, $img_size ) : '' );
               echo "
-                <div class='upload_preview' title='Double click to remove'>{$preview}</div>
                 <input {$extra_attr} type='hidden' 
                 name='{$name}' id='{$name}' 
                 value='{$value}'
                 class='ntzUploadTarget' />
                 <span class='uploadTrigger button-secondary'>upload</span>
+                <span class='upload_preview' data-imgsize='{$img_size}' title='Double click to remove'>{$preview}</span>
                 ";
             break; // default
 
@@ -253,7 +255,7 @@ class Ntz_settings extends Ntz_utils{
             break;
 
             default:
-              echo "<input type='{$field['type']}' name='{$name}' value='{$value}' {$extra_attr} />";
+              echo "<input type='{$field['type']}' name='{$name}' value='{$value}' class='regular-text' {$extra_attr} />";
             break;
           }
 
