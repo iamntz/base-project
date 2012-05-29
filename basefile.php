@@ -5,10 +5,10 @@
 <!--[if IE 9 ]>    <html lang="en" class="no-js msie ie9 lte9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js nomsie"> <!--<![endif]-->
   <head>
+    <meta charset="utf-8">
     <title>base.project</title>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <script type="text/javascript">
       document.documentElement.className = document.documentElement.className.replace('no-js', '');
@@ -17,19 +17,19 @@
     <!-- uncomment next lines for native-looking app on ios devices -->
     <!-- 
       <meta name="apple-mobile-web-app-capable" content="yes"> 
-      <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
       <link rel="apple-touch-icon" href="apple-touch-icon.png">
     -->
 
     <!-- Useful when you need to disable zoom on all mobile devices. Probably is a good idea to not have this enabled -->
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" /> -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"> -->
 
     <!-- <link rel="shortcut icon" href="favicon.ico"> -->
 
     <!-- html5 elements for ie<9 -->
     <!--[if lte IE 8 ]> <script type="text/javascript">var htmlForIe = ["abbr" ,"article" ,"aside" ,"audio" ,"canvas" ,"details" ,"figcaption" ,"figure" ,"footer" ,"header" ,"hgroup" ,"mark" ,"meter" ,"nav" ,"output" ,"progress" ,"section" ,"summary" ,"time" ,"video"], htmlForIeLen = htmlForIe.length; for(i=0;i<htmlForIeLen;i++){ document.createElement(htmlForIe[i]); }</script> <![endif]-->
 
-    <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen">
 
     <script type="text/javascript"><?php // change UA-XXXXX-X to your g.analytics code ?>
         var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview'], ['_trackPageLoadTime']];

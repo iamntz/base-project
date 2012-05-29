@@ -245,6 +245,24 @@ class Ntz_utils{
   } // adjust_color
 
 
+  /**
+   *  get an image based on its ID stored in DB
+   *  @param  string|integer  $attach     the ID or the URL of the image
+   *  @param  string          $size       the image size
+   *  @return string|boolean              the image URL or false
+   */
+  public function get_attachment( $attach = '', $size = 'thumbnail' ){
+    $src = false;
+    if( is_numeric( $attach ) ){
+      $src = wp_get_attachment_image_src( $attach, $size );
+      $src = $src[0];
+    }else {
+
+    }
+
+    return $src;
+  } // get_attachment
+
 }//Ntz_utils 
 
 

@@ -8,7 +8,7 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html <?php language_attributes(); ?> class="no-js nomsie"> <!--<![endif]-->
 
 <head>
-<meta charset="<?php bloginfo( 'charset' ); ?>" />
+<meta charset="<?php bloginfo( 'charset' ); ?>">
 <title><?php
   global $page, $paged;
   wp_title( '|', true, 'right' );
@@ -18,7 +18,7 @@
   if ( $paged >= 2 || $page >= 2 ) { echo ' | ' . sprintf( __('Page %s', 'ntz'), max( $paged, $page ) );} 
 ?></title>
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
   <script type="text/javascript">
     document.documentElement.className = document.documentElement.className.replace('no-js', '');
@@ -43,9 +43,9 @@ if( is_readable( get_template_directory().'/favicon.ico' ) ){ ?>
   <link rel="apple-touch-icon" href="<?php echo PATH; ?>/apple-touch-icon.png">
 
 <?php } ?>
-<link rel="profile" href="http://gmpg.org/xfn/11" />
-<link rel="stylesheet" type="text/css" media="all" href="<?php echo PATH ?>/css/screen.css?ver=<?php echo CSS_VERSION; ?>" />
-<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="stylesheet" type="text/css" media="all" href="<?php echo PATH ?>/css/screen.css?ver=<?php echo CSS_VERSION; ?>">
+<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
 <?php if( strlen( $ntz->g_analytics ) > 0 ){ // displaying g.analytics before wp_head to avoid any script block ?>
 <script>

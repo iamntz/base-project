@@ -119,7 +119,7 @@ class Ntz_settings extends Ntz_utils{
     $this->options = $options;
 
     if( !empty( $options ) ){
-      register_setting( $options['group'], $options['name'], array( &$this, 'save_settings' ) );
+      register_setting( trim( $options['group'] ), trim( $options['name'] ), array( &$this, 'save_settings' ) );
     }
   }
 
@@ -191,7 +191,7 @@ class Ntz_settings extends Ntz_utils{
           $value   = !empty( $stored_options[$field['name']] ) ? $stored_options[$field['name']] : null;
 
           if( $field['type'] != 'hidden' ){
-            echo "<tr>\n<th scope='row'><label>" . ( !empty( $field['label'] ) ? $field['label'] : '' ) ."</label></th>\n";
+            echo "<tr>\n";
           }else {
             echo "<tr class='hidden_field'>\n";
           }
@@ -208,8 +208,10 @@ class Ntz_settings extends Ntz_utils{
           }
 
           if( $field['type'] == 'info' ){
-            echo "<td colspan='2' class='wide_row'>{$field['text']}</td>\n";
+            echo "<td colspan='2' class='wide_row'><div class='info'>{$field['text']}</div></td>\n";
             continue;
+          }else{
+            echo "<th scope='row'><label>" . ( !empty( $field['label'] ) ? $field['label'] : '' ) ."</label></th>\n";
           }
 
           $extra_attr = '';
@@ -245,11 +247,16 @@ class Ntz_settings extends Ntz_utils{
             case "select":
               echo "<select name='{$name}' {$extra_attr}>";
                 foreach( $field['opts'] as $option_key => $option ){
-                  $selected = '';
+                  $extra_option_attr = $selected = '';
                   if( $option_key == $value ){
                     $selected =' selected="selected"';
                   }
-                  echo "<option value='{$option_key}' {$selected}>{$option}</option>";
+                  if( is_array( $option ) ){
+
+                  }else {
+                    $option_value = $option;
+                  }
+                  echo "<option value='{$option_key}' {$selected} {$extra_option_attr}>{$option_value}</option>";
                 }
               echo "</select>";
             break;

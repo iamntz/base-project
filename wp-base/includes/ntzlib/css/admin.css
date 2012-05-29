@@ -30,8 +30,15 @@
 .ntzForm {
 
 } 
+  .ntzForm textarea {
+    width:25em;
+    height:10em;
+  }
   .ntzForm .upload_preview {
     display:inline-block;
     vertical-align:middle;
     margin-left:10px;
+  }
+  .ntzForm .info {
+    width:600px;
   }

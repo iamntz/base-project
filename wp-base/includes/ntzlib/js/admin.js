@@ -56,7 +56,7 @@ jQuery(document).ready(function($){
           var iframe   = $( $('#TB_iframeContent')[0].contentWindow.document.body ),
               uploadID = $('.savesend .button', iframe).filter(function(){ return $(this).closest('table:visible').length; }).attr('id');
 
-          if( uploadID ){
+          if( uploadID ){ //  TODO: make custom image URL works!
             uploadID = uploadID.replace('send[', '');
             uploadID = uploadID.replace(']', '');
 
