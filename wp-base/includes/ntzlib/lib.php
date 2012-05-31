@@ -1,7 +1,8 @@
 <?php 
 
 $ntz_lib_includes = array(
-
+  "general/pluralize",
+  "post_type" => "post/post_type"
 );
 
 $ntz_lib_admin_includes = array(

@@ -84,6 +84,10 @@ rm latest.tar.gz
 
 mkdir %theme_directory%
 
+mkdir %theme_directory%\i
+mkdir %theme_directory%\resources
+mkdir %theme_directory%\psd
+
 xcopy %template_folder%\* %theme_directory%\ /e
 rm -rf tmp
 
@@ -93,6 +97,7 @@ xcopy wp-base\* . /e
 
 rm -rf wp-base
 del basefile.php
+
 
 mkdir plugins
 cd plugins
@@ -183,9 +188,9 @@ echo Downloading latest version of base project
 echo ------------------------------------------------
 echo.
 
-curl -O https://nodeload.github.com/iamntz/base-project/zipball/master
-unzip -u master
-rm master
+curl -O https://nodeload.github.com/iamntz/base-project/zipball/v2
+unzip -u v2
+rm v2
 
 mv * baseproject
 set template_folder=%PWD%\tmp\baseproject
@@ -202,6 +207,7 @@ cd %PWD%
 
 if exist %template_folder%\i.bash rm %template_folder%\i.bash
 if exist %template_folder%\i.bat rm %template_folder%\i.bat
+if exist %template_folder%\new_file.bat rm %template_folder%\new_file.bat
 if exist %template_folder%\readme.md rm %template_folder%\readme.md
 
 GOTO %redirect%

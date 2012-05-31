@@ -9,7 +9,7 @@ define( 'JS_VERSION', '1' );
 
 global $ntz;
 $ntz = json_decode( get_option( 'ntz_settings' ) );
-define( 'PATH', get_bloginfo( 'stylesheet_directory' ) );
+define( 'THEME_PATH', get_bloginfo( 'stylesheet_directory' ) );
 
 add_action( 'after_setup_theme', 'ntz_setup' );
 if ( !function_exists('ntz_setup') ){
