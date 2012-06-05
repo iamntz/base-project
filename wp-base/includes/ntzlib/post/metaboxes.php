@@ -207,7 +207,7 @@ class Ntz_Meta_box_builder extends Ntz_utils{
         echo "</div>";
       }
     }
-    do_action( $this->options['meta_callback'] );
+    do_action( $this->options['meta_callback'], $post_data, $meta_info );
     echo '<input type="hidden" name="ntz_do" value="save:custom_metaboxes"/>';
   } // add_meta
 
@@ -217,30 +217,30 @@ class Ntz_Meta_box_builder extends Ntz_utils{
       $ntz_do = explode( ':', $this->clean( $_REQUEST['ntz_do'] ) );
     }
     if( $ntz_do[0] == 'save' && $ntz_do[1] == 'custom_metaboxes' ){
+      if( is_array( $this->options['fields'] ) ){
+        foreach( $this->options['fields'] as $single_field ){
+          $update_value = $_REQUEST[$single_field['name']];
 
-      foreach( $this->options['fields'] as $single_field ){
-        $update_value = $_REQUEST[$single_field['name']];
+          if( wp_verify_nonce( $_REQUEST["ntz_custom_meta_nonce_{$single_field['name']}"], "ntz_custom_meta_nonce_{$single_field['name']}" ) ){
 
-        if( wp_verify_nonce( $_REQUEST["ntz_custom_meta_nonce_{$single_field['name']}"], "ntz_custom_meta_nonce_{$single_field['name']}" ) ){
+            if( $single_field['type'] == 'checkbox' ){
+              $update_value = isset( $update_value ) ? '1' : '0';
+            }else {
 
-          if( $single_field['type'] == 'checkbox' ){
-            $update_value = isset( $update_value ) ? '1' : '0';
-          }else {
+              if( $single_field['type'] == 'number' ){
+                $update_value = str_replace( ',', '.', $update_value );
+              }
 
-            if( $single_field['type'] == 'number' ){
-              $update_value = str_replace( ',', '.', $update_value );
+              if( is_array( $update_value ) ){ // multiple checkboxes or multiple selects
+                $update_value = serialize( $update_value );
+              }
+
             }
-
-            if( is_array( $update_value ) ){ // multiple checkboxes or multiple selects
-              $update_value = serialize( $update_value );
-            }
-
+            update_post_meta( $post_id, $single_field['name'], $update_value );
           }
-          update_post_meta( $post_id, $single_field['name'], $update_value );
         }
-
       }
-      do_action( $this->options['save_callback']);
+      do_action( $this->options['save_callback'], $post_id );
     }
   } // save_meta
 }

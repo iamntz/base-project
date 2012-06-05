@@ -3,7 +3,7 @@
 /*
  *  Class usage:
 
-class Admin_options extends Ntz_utils{
+class Admin_options extends Ntz_settings{
   protected $main_settings, $social_settings, $home_slider, $current_lang;
   function __construct( $reconstruct = false ){
     parent::__construct($reconstruct);
@@ -44,9 +44,11 @@ class Admin_options extends Ntz_utils{
 
   public function settings_main(){
     $current_lang = $this->current_lang;
+    add_action( 'language_selector', array( &$this, 'language_selector' ) );
     $this->general_settings->form_builder(array(
       "title"         => "Pages",
       "section_name"  => "general_settings_{$current_lang}",
+      "before_fields" => 'language_selector',
       "fields"        => array(
         array(
           "type"  => "hidden",
@@ -310,6 +312,29 @@ class Ntz_settings extends Ntz_utils{
   } // list_pages
 
 
+    public function language_selector(){
+      if( function_exists( 'icl_get_languages' ) ){
+        $this->current_lang = isset( $_GET['lang'] ) ? $_GET['lang'] : 'en';
+
+        $available_languages = icl_get_languages('skip_missing=0&orderby=id&order=asc');
+        echo "<p class='langPickerAdmin'>";
+        echo "<input type='hidden' name='lang' value='{$this->current_lang}' />";
+        foreach( $available_languages as $lang ){
+          $lang_url = $this->addURLParameters( null, array( 'lang' => $lang['language_code'] ) );
+          
+          if( $this->current_lang == $lang['language_code'] ){
+            $selected = 'active_lang';
+          }else { $selected = ''; }
+
+          echo "<a href='{$lang_url}' title='{$lang['native_name']}' class='{$selected}'>";
+            echo "<img src='{$lang['country_flag_url']}' alt='' />";
+          echo "</a>";
+
+        }
+      }
+    } // language_selector
+
+
   /**
    * get a stored option
    * @param  string $option_name option name
@@ -325,3 +350,4 @@ class Ntz_settings extends Ntz_utils{
   }
 
 }//Ntz_settings  extends Ntz_utils
+

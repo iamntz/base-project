@@ -129,7 +129,6 @@ class Ntz_utils{
     if ($_SERVER["HTTPS"] == "on") { $pageURL .= "s"; }
     $pageURL .= "://";
     $pageURL .= $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
-
     return $pageURL;
   } // get_url
 
@@ -167,7 +166,7 @@ class Ntz_utils{
       }
       $url .= $url_data['host'];
       if( isset( $url_data['port'] ) ){
-        //$url .= ':' . $url_data['port'];
+        $url .= ':' . $url_data['port'];
       }
       $url .= $url_data['path'];
       if( isset( $url_data['query'] ) ){

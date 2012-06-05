@@ -7,8 +7,17 @@ error_reporting( E_ALL - E_NOTICE );
 define( 'CSS_VERSION', '1' );
 define( 'JS_VERSION', '1' );
 
+// wpml constants 
+define( 'ICL_DONT_LOAD_NAVIGATION_CSS', true );
+define( 'ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS', true );
+define( 'ICL_DONT_LOAD_LANGUAGES_JS', true );
+define( 'ICL_DONT_PROMOTE', true );
+
 global $ntz;
-$ntz = json_decode( get_option( 'ntz_settings' ) );
+$current_lang   = ( defined( ICL_LANGUAGE_CODE ) ? ICL_LANGUAGE_CODE : 'en' );
+$ntz['general'] = get_option( "general_settings" );
+$ntz['social']  = get_option( "general_settings_{$current_lang}" );
+
 define( 'THEME_PATH', get_bloginfo( 'stylesheet_directory' ) );
 
 add_action( 'after_setup_theme', 'ntz_setup' );
@@ -17,6 +26,8 @@ if ( !function_exists('ntz_setup') ){
     add_editor_style(); // Default: editor-style.css 
 
     add_theme_support( 'post-thumbnails' );
+    //set_post_thumbnail_size( 100, 100, true );
+
     //add_image_size( $name, $width, $height, $crop ); 
     add_post_type_support( 'page', 'excerpt' );
     add_theme_support( 'automatic-feed-links' );
