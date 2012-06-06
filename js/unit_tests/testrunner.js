@@ -13,77 +13,95 @@
  * @param timeOutMillis the max amount of time to wait. If not specified, 3 sec is used.
  */
 function waitFor(testFx, onReady, timeOutMillis) {
-    var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 3001, //< Default Max Timout is 3s
-        start = new Date().getTime(),
-        condition = false,
-        interval = setInterval(function() {
-            if ( (new Date().getTime() - start < maxtimeOutMillis) && !condition ) {
-                // If not time-out yet and condition not yet fulfilled
-                condition = (typeof(testFx) === "string" ? eval(testFx) : testFx()); //< defensive code
-            } else {
-                if(!condition) {
-                    // If condition still not fulfilled (timeout but condition is 'false')
-                    console.log("'waitFor()' timeout");
-                    phantom.exit(1);
-                } else {
-                    // Condition fulfilled (timeout and/or condition is 'true')
-                    console.log("'waitFor()' finished in " + (new Date().getTime() - start) + "ms.");
-                    typeof(onReady) === "string" ? eval(onReady) : onReady(); //< Do what it's supposed to do once the condition is fulfilled
-                    clearInterval(interval); //< Stop this interval
-                }
-            }
-        }, 100); //< repeat check every 250ms
+  var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 3001, //< Default Max Timout is 3s
+    start = new Date().getTime(),
+    condition = false,
+    interval = setInterval(function() {
+      if ( (new Date().getTime() - start < maxtimeOutMillis) && !condition ) {
+        // If not time-out yet and condition not yet fulfilled
+        condition = (typeof(testFx) === "string" ? eval(testFx) : testFx()); //< defensive code
+      } else {
+        if(!condition) {
+          // If condition still not fulfilled (timeout but condition is 'false')
+          console.log("'waitFor()' timeout");
+          phantom.exit(1);
+        } else {
+          // Condition fulfilled (timeout and/or condition is 'true')
+          //console.log("'waitFor()' finished in " + (new Date().getTime() - start) + "ms.");
+          typeof(onReady) === "string" ? eval(onReady) : onReady(); //< Do what it's supposed to do once the condition is fulfilled
+          clearInterval(interval); //< Stop this interval
+        }
+      }
+    }, 100); //< repeat check every 250ms
 };
- 
- 
+
+
 if (phantom.args.length === 0 || phantom.args.length > 2) {
-    console.log('Usage: run-qunit.js URL');
-    phantom.exit(1);
+  console.log('Usage: run-qunit.js URL');
+  phantom.exit(1);
 }
- 
+
 var page = new WebPage();
- 
+
 // Route "console.log()" calls from within the Page context to the main Phantom context (i.e. current "this")
 page.onConsoleMessage = function(msg) {
-    console.log(msg);
+  console.log(msg);
 };
- 
-page.open(phantom.args[0], function(status){
-    if (status !== "success") {
-        console.log("Unable to access network");
-        phantom.exit(1);
-    } else {
-        waitFor(function(){
-            return page.evaluate(function(){
-                var el = document.getElementById('qunit-testresult');
-                if (el && el.innerText.match('completed')) {
-                    return true;
-                }
-                return false;
-            });
-        }, function(){
-            var failedNum = page.evaluate(function(){
- 
-                var tests = document.getElementById("qunit-tests").childNodes;
-                console.log("\nTest name (failed, passed, total)\n");
-                for(var i in tests){
-                    var text = tests[i].innerText;
-                    if(text !== undefined){
-                        if(/Rerun$/.test(text)) text = text.substring(0, text.length - 5);
 
-                        text = text.replace("Rerun", "\n=="+ Array( Math.min( 115 ) ).join("="))
-                        console.log(text + "\n");    
-                    }
-                }
- 
-                var el = document.getElementById('qunit-testresult');
-                console.log(el.innerText);
-                try {
-                    return el.getElementsByClassName('failed')[0].innerHTML;
-                } catch (e) { }
-                return 10000;
-            });
-            phantom.exit((parseInt(failedNum, 10) > 0) ? 1 : 0);
-        });
-    }
+page.open(phantom.args[0], function(status){
+  if (status !== "success") {
+    console.log("Unable to access network");
+    phantom.exit(1);
+  } else {
+    waitFor(function(){
+      return page.evaluate(function(){
+        var el = document.getElementById('qunit-testresult');
+        if (el && el.innerText.match('completed')) {
+          return true;
+        }
+        return false;
+      });
+    }, function(){
+      var failedNum = page.evaluate(function(){
+
+        var tests = document.getElementById("qunit-tests").childNodes;
+        console.log( '' );
+        for(var i in tests){
+          var text = tests[i].innerText, failed, titlePrefix = '';
+          if(text !== undefined){
+            failed =  tests[i].getElementsByClassName('fail').length;
+            if( failed ){
+              titlePrefix = ' X  '
+            }
+            console.log( titlePrefix + tests[i].getElementsByTagName('strong')[0].innerText );
+
+            if( failed ){
+              console.log( Array( Math.min( 75 ) ).join("=") );
+              var results = tests[i].getElementsByTagName('li');
+              for( var r = 0, len = results.length; r < len; r++ ){
+                var prefix = '[ ] ';
+                if( results[r].className == 'fail' ){ prefix = '[x] '; }
+                console.log( prefix + results[r].innerText);
+              }
+              console.log('');
+            }
+
+          }
+
+        }
+        console.log('');
+
+        var el = document.getElementById('qunit-testresult');
+        console.log(el.innerText);
+
+        try {
+          return el.getElementsByClassName('fail')[0].innerHTML;
+        } catch (e) { }
+
+        return 10000;
+      });
+
+      phantom.exit((parseInt(failedNum, 10) > 0) ? 1 : 0);
+    });
+  }
 });
