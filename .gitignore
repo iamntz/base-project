@@ -32,6 +32,7 @@ publish
 cache
 .idea
 psd
+.sass-cache
 
 #sublime text project files
 *.sublime-project

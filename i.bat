@@ -160,6 +160,11 @@ cd wp-super-cache
 rm -rf .svn
 cd ..
 
+svn checkout http://plugins.svn.wordpress.org/wordpress-backup-to-dropbox/trunk/ wordpress-backup-to-dropbox
+cd wordpress-backup-to-dropbox
+rm -rf .svn
+cd ..
+
 REM svn checkout http://plugins.svn.wordpress.org/jetpack/trunk/ jetpack
 REM cd jetpack
 REM rm -rf .svn
