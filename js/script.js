@@ -20,7 +20,7 @@ jQuery(document).ready(function($){
 
   var enablePlaceholders = {
     init: function( el ){
-      var $t = this, $ = jQuery;
+      var $t = this;
       $t.el = $(el).data( 'hasplaceholder', true );
       $t.placeholder = $t.el.attr('placeholder');
       $t.addPlaceholder( $t.el );

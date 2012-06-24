@@ -1,31 +1,46 @@
 /* @group ntz css reset */
 
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
-b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin:0; padding:0; border:0; font-size:100%; vertical-align:baseline; }                  
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display:block; }
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, cite, code,
+del, dfn, em, img, ins, kbd, q, s,
+small, strong, sub, sup, b, u, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video  {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
 
 blockquote, q { quotes:none; }
 blockquote:before, blockquote:after,
 q:before, q:after { content:''; content:none; }
 
-a { margin:0; padding:0; font-size:100%; vertical-align:baseline; }
 ins { background-color:#ff9; color:#000; text-decoration:none; }
 mark { background-color:#ff9; color:#000; font-style:italic; font-weight:700; }
 
 del { text-decoration: line-through; }
 abbr[title], dfn[title] { border-bottom:1px dotted; cursor:help; }
-
-table { border-collapse:collapse; border-spacing:0; }
-hr { display:block; height:1px; border:0; border-top:1px solid #ccc; margin:1em 0; padding:0; }
-input, select { vertical-align:middle; }
-
-select, input, textarea, button { font:99% sans-serif; }
 pre, code, kbd, samp { font-family: monospace, sans-serif; }
 
-html { overflow-y: scroll; }
+table { border-collapse:collapse; border-spacing:0; }
+
+hr { display:block; height:1px; border:0; border-top:1px solid #ccc; margin:1em 0; padding:0; }
+
+input, select { vertical-align:middle; }
+select, input, textarea, button { font:99% sans-serif; }
 
 ul, ol { margin-left: 1.8em; }
 ol { list-style-type: decimal; }
@@ -41,9 +56,7 @@ pre { padding: 15px; white-space: pre; white-space: pre-wrap; white-space: pre-l
 textarea { overflow: auto; } 
 
 input[type="checkbox"] { vertical-align: text-bottom; }
-
 input[type="radio"] { vertical-align: bottom  }
-
 input[type=button], input[type=submit], button { cursor: pointer; }
 button, input, select, textarea { margin: 0; outline: none; }
 
@@ -55,18 +68,21 @@ input[type="reset"]::-moz-focus-inner {
   padding: 0 !important;
 }
 
-/*
+button { width: auto; overflow: visible; }
+
+
 ::-moz-selection{ background: #FF5E99; color:#fff; text-shadow: none; }
 ::selection { background:#FF5E99; color:#fff; text-shadow: none; } 
 a:link { -webkit-tap-highlight-color: #FF5E99; } 
-*/
 
 ::-webkit-input-placeholder { color:#999; }
 input:-moz-placeholder { color:#999; }
 input[type="search"] { -webkit-appearance: textfield; }
 
-button { width: auto; overflow: visible; }
-
+a { outline: none; color:#6c5f9e; }
+a:focus { outline:1px dotted #eee; }
+a:hover, a:focus {color:#000;}
+html { overflow-y: scroll; }
 
 /* common classes
 ------------------------------------------------------------- */
@@ -88,14 +104,12 @@ button { width: auto; overflow: visible; }
 .lte7 input[type="checkbox"] { vertical-align:bottom; }
 /* @end */
 
-a { outline: none; color:#6c5f9e; }
-a:focus { outline:1px dotted #eee; }
-a:hover, a:focus {color:#000;}
 body {
 
 }
-h1, h2, h3, h4, h5, h6 { font-weight:700; }
+h1, h2, h3, h4, h5, h6 { font-weight:700;line-height:1; }
 h1, h2, h3, h4, h5, h6, p, ol, ul, dl, blockquote {margin-bottom:.8em;}
+
 h1 { font-size:1.6em; }
 h2 { font-size:1.5em; }
 h3 { font-size:1.4em; }
