@@ -15,8 +15,8 @@ define( 'ICL_DONT_PROMOTE', true );
 
 global $ntz;
 $current_lang   = ( defined( ICL_LANGUAGE_CODE ) ? ICL_LANGUAGE_CODE : 'en' );
-$ntz['general'] = get_option( "general_settings" );
-$ntz['social']  = get_option( "general_settings_{$current_lang}" );
+$ntz['general'] = get_option( "ntz_settings_general_{$current_lang}" );
+$ntz['social']  = get_option( "ntz_settings_social_{$current_lang}" );
 
 define( 'THEME_PATH', get_bloginfo( 'stylesheet_directory' ) );
 

@@ -31,26 +31,18 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
   */?>
 
-  <!-- html5 elements for ie<9 -->
+  <!-- !html5 elements for ie<9 -->
   <!--[if lte IE 8 ]> <script type="text/javascript">var htmlForIe = ["abbr" ,"article" ,"aside" ,"audio" ,"canvas" ,"details" ,"figcaption" ,"figure" ,"footer" ,"header" ,"hgroup" ,"mark" ,"meter" ,"nav" ,"output" ,"progress" ,"section" ,"summary" ,"time" ,"video"], htmlForIeLen = htmlForIe.length; for(i=0;i<htmlForIeLen;i++){ document.createElement(htmlForIe[i]); }</script> <![endif]-->
 
-<?php 
-if( is_readable( get_template_directory().'/favicon.ico' ) ){ ?>
-  <link rel="shortcut icon" href="<?php echo THEME_PATH; ?>/favicon.ico">
 
-<?php } ?>
-<?php if( is_readable( get_template_directory().'/apple-touch-icon.png' ) ){ ?>
-  <link rel="apple-touch-icon" href="<?php echo THEME_PATH; ?>/apple-touch-icon.png">
-
-<?php } ?>
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="stylesheet" type="text/css" media="all" href="<?php echo THEME_PATH ?>/css/screen.css?ver=<?php echo CSS_VERSION; ?>">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
-<?php if( strlen( $ntz->g_analytics ) > 0 ){ // displaying g.analytics before wp_head to avoid any script block ?>
+<?php if( strlen( $ntz['social']['g_analytics'] ) > 0 ){ // displaying g.analytics before wp_head to avoid any script block ?>
 <script>
   /* <![CDATA[ */
-    var _gaq = [['_setAccount', '<?php echo $ntz->g_analytics; ?>'], ['_trackPageview'], ['_trackPageLoadTime']];
+    var _gaq = [['_setAccount', '<?php echo $ntz['social']['g_analytics']; ?>'], ['_trackPageview'], ['_trackPageLoadTime']];
     (function(d, t) {
       var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
       g.async = true;
@@ -66,3 +58,5 @@ if( is_readable( get_template_directory().'/favicon.ico' ) ){ ?>
 </head>
 
 <body <?php body_class(); ?>>
+
+<?php 
