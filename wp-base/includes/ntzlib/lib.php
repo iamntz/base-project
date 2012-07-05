@@ -246,10 +246,11 @@ class Ntz_utils{
 
 
   /**
-   *  get an image based on its ID stored in DB
-   *  @param  string|integer  $attach     the ID or the URL of the image
-   *  @param  string          $size       the image size
-   *  @return string|boolean              the image URL or false
+   * get an image based on its ID stored in DB
+   * @param  string|integer  $attach     the ID or the URL of the image
+   * @param  string          $size       the image size
+   * @return string|boolean              the image URL or false
+   * @todo play nice with remote images
    */
   public function get_attachment( $attach = '', $size = 'thumbnail' ){
     $src = false;
@@ -259,9 +260,102 @@ class Ntz_utils{
     }else {
 
     }
-
     return $src;
   } // get_attachment
+
+
+  /**
+   * add a custom image and a custom color for terms
+   * 
+   * @param array $term_names terms you want to enable these awesome features.
+   * see save_category_image function for a hint on how to get these values on frontend
+   */
+  public function add_category_image( $term_names = array() ){
+    foreach ( (array) $term_names as $term ) {
+      add_action ( "{$term}_add_form_fields", array( &$this, 'term_image_and_color' ) );
+      add_action ( "created_{$term}", array( &$this, 'save_category_image' ) );
+
+      add_action ( "{$term}_edit_form_fields", array( &$this, 'term_image_and_color' ) );
+      add_action ( "edited_{$term}", array( &$this, 'save_category_image' ) );
+    }
+  } // add_category_image
+
+  public function term_image_and_color( $tag = null ){
+      $category_images = get_option( 'category_images' );
+      $category_color = get_option( 'category_colors' );
+      $category_image = '';
+
+      //if( is_array( $category_images ) && array_key_exists( $tag->term_id, $category_images ) ) {
+      //  $category_image = wp_get_attachment_image( $category_images[$tag->term_id], 'thumbnail' );
+      //}
+
+      $editing_tag = (int)$_REQUEST['tag_ID'] > 0 ? true : false;
+
+      if( $editing_tag ) {
+        $wrapper = 'tr';
+        $head    = 'th';
+        $content = 'td';
+      }else {
+        $wrapper = 'div';
+        $head    = 'div';
+        $content = 'div';
+      }
+     ?>
+
+      <<?php echo $wrapper; ?> class="form-field">
+
+        <<?php echo $head; ?> scope="row" valign="top">
+        <?php if ($category_image !=""){ 
+          echo $category_image;
+        } ?>
+        </<?php echo $head; ?>>
+
+        <<?php echo $content; ?>>
+          <label>Category Image</label>
+          <div class="upload_preview"><?php
+            if( (int) $category_images[$tag->term_id] > 0 ){
+              $preview_image = $this->get_attachment( (int) $category_images[$tag->term_id], 'thumbnail' );
+              echo "<img src='{$preview_image}'>";
+            }
+          ?></div>
+          <input type="hidden" name="category_image" class=" ntzUploadTarget" value="<?php echo $category_images[$tag->term_id]; ?>" />
+          <a title="Upload image" class="ntzUploadTrigger button" href="#">Select image for category</a>
+
+        </<?php echo $content; ?>>
+      </<?php echo $wrapper; ?>>
+
+      <<?php echo $wrapper; ?> class="form-field">
+
+        <<?php echo $head; ?> scope="row" valign="top">
+
+        </<?php echo $head; ?>>
+
+        <<?php echo $content; ?>>
+          <label>Category Color</label>
+          <input type="text" name="category_color" class="ntzColorpicker" value="<?php echo $category_color[$tag->term_id]; ?>" />
+        </<?php echo $content; ?>>
+      </<?php echo $wrapper; ?>>
+
+    <?php
+  } // term_image_and_color
+
+  public function save_category_image( $term_id = 0 ){
+    if ( isset( $_POST['category_image'] ) ) {
+      //load existing images
+      $category_images = get_option( 'category_images' );
+
+      //load existing colors
+      $category_colors = get_option( 'category_colors' );
+
+      $category_images[$term_id] = (int)$_POST['category_image'];
+      $category_colors[$term_id] = $this->clean( $_POST['category_color'] );
+
+      //save the option array
+      update_option( 'category_images', $category_images );
+      update_option( 'category_colors', $category_colors);
+    }
+  } // save_category_image
+
 
 }//Ntz_utils 
 

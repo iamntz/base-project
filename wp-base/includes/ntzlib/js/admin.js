@@ -1,6 +1,6 @@
 jQuery(document).ready(function($){
 
-  $('.ntz_colorpicker').each(function(){
+  $('.ntz_colorpicker, .ntzColorpicker').each(function(){
     var color = $(this);
     color.css({
       backgroundColor:'#'+color.val(),
@@ -36,7 +36,7 @@ jQuery(document).ready(function($){
     }
   });
 
-  $('.uploadTrigger').live('click', function(){
+  $('.uploadTrigger, .ntzUploadTrigger').live('click', function(){
     var t = $(this),
         p = t.parent(),
         target = $('.ntzUploadTarget', p);
@@ -81,11 +81,12 @@ jQuery(document).ready(function($){
         if(typeof(oldSendToEditor)=='function') { 
           window.send_to_editor = oldSendToEditor;
         }
+
         $.getJSON( ajaxurl, {
           action : 'get_image_versions',
           img_id : ntzUploadTargetId.val()
         }, function(json){
-          var img_size = $( '.upload_preview', p ).data('imgsize');
+          var img_size = $( '.upload_preview', p ).data('imgsize') || 'thumbnail';
           $( '.upload_preview', p ).empty().append( json[img_size] );
         } );
 
