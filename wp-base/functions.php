@@ -43,8 +43,8 @@ add_filter( 'use_default_gallery_style', '__return_false' );
 // ===================================
 // = removing new admin bar (wp 3.1) =
 // ===================================
-add_filter( 'show_admin_bar', '__return_false' );
-remove_action( 'personal_options', '_admin_bar_preferences' );
+//add_filter( 'show_admin_bar', '__return_false' );
+//remove_action( 'personal_options', '_admin_bar_preferences' );
 
 $requires = array( 'ntz_lib', 'ntzlib/lib', 'post_type' ); // including all required libs
 

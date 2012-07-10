@@ -69,12 +69,14 @@ class Ntz_utils{
 
 
   /**
-   *  get all versions of an image as an array
-   *  
-   *  @param  integer $image_id the image id
-   *  @param  boolean $echo  either we are displaying (AJAX) or not the images
-   *  
-   *  @return void|array
+   * get all versions of an image as an array
+   * 
+   * @param  integer $image_id the image id
+   * @param  boolean $echo  either we are displaying (AJAX) or not the images
+   * 
+   * @return void|array
+   * 
+   * @todo split ajax functions to a separate class
    */
   public function get_image_versions( $image_id = 0, $echo = true ){
     $sizes = get_intermediate_image_sizes();
