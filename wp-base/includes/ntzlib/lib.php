@@ -29,13 +29,14 @@ if( is_array( $ntz_lib_includes ) ){
 */
 
 class Ntz_utils{
-  protected $wpdb, $lib_path;
+  protected $wpdb, $lib_path, $custom_taxonomy_prefix;
   function __construct( $init = true ){
     global $wpdb;
     $this->wpdb = $wpdb;
     $this->path = THEME_PATH;
 
     $this->lib_path = $this->path.'/includes/ntzlib';
+
     if( !$init ){
       add_action( 'admin_init', array( &$this, 'style_and_scripts' ) );
     }
@@ -359,6 +360,62 @@ class Ntz_utils{
     }
   } // save_category_image
 
+
+  /**
+   * Create a custom taxonomy without repeating all things
+   * @param  array  $options taxonomy options
+   * @return void
+   */
+  public function create_custom_taxonomy( $options = array() ){
+    $options = array_merge(array(
+      "singular_name" => "{Genre}",
+      "plural_name"   => "{Genres}",
+      "tax_name"      => "",
+      "post_types"    => array( "post" ),
+      "rewrite"       => array( 'slug' => '{genre}' ),
+      "hierarchical"  => true,
+      "custom_image"  => false,
+      "tax_prefix"    => $this->custom_taxonomy_prefix
+    ), $options );
+
+    if( $options['tax_name'] == "" ){
+      $options['tax_name'] = $options['tax_prefix'] . str_replace( " ", "_", strtolower( $options['plural_name'] ) );
+    }
+
+    $labels = array(
+      'name'                       => _x( $options['plural_name'], 'taxonomy general name' ),
+      'singular_name'              => _x( $options['singular_name'], 'taxonomy singular name' ),
+      'search_items'               => __( 'Search '. $options['plural_name'] ),
+
+      'all_items'                  => __( 'All '. $options['plural_name'] ),
+      'parent_item'                => __( 'Parent ' . $options['singular_name'] ),
+      'parent_item_colon'          => __( 'Parent ' . $options['singular_name'] . ':' ),
+
+      'edit_item'                  => __( 'Edit ' . $options['singular_name'] ), 
+      'update_item'                => __( 'Update ' . $options['singular_name'] ),
+      'add_new_item'               => __( 'Add New ' . $options['singular_name'] ),
+
+      'new_item_name'              => __( 'New  Name' . $options['singular_name'] ),
+      'popular_items'              => __( 'Popular '. $options['plural_name'] ),
+      'menu_name'                  => __(  $options['plural_name'] ),
+
+      'separate_items_with_commas' => __( 'Separate ' . $options['plural_name'] . ' with commas' ),
+      'add_or_remove_items'        => __( 'Add or remove ' . $options['plural_name'] ),
+      'choose_from_most_used'      => __( 'Choose from the most used ' . $options['plural_name'] ),
+    );
+
+    register_taxonomy( $options['tax_name'], $options['post_types'], array(
+      'hierarchical' => $options['hierarchical'],
+      'labels'       => $labels,
+      'show_ui'      => true,
+      'query_var'    => true,
+      'rewrite'      => $options['rewrite'],
+    ));
+
+    if( $options['custom_image'] ){
+      $this->add_category_image( $options['tax_name'] );
+    }
+  } // create_custom_taxonomy
 
 }//Ntz_utils 
 
