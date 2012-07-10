@@ -42,3 +42,12 @@
   .ntzForm .info {
     width:600px;
   }
+.category_image_preview {
+  margin-top:10px;
+}
+
+.form-field .ntzColorpicker,
+.ntzColorpicker {
+  width:100px;
+  cursor:pointer;
+}

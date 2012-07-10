@@ -271,6 +271,7 @@ class Ntz_utils{
    * 
    * @param array $term_names terms you want to enable these awesome features.
    * see save_category_image function for a hint on how to get these values on frontend
+   * @todo create separate methods for image and for colors
    */
   public function add_category_image( $term_names = array() ){
     foreach ( (array) $term_names as $term ) {
@@ -313,15 +314,15 @@ class Ntz_utils{
         </<?php echo $head; ?>>
 
         <<?php echo $content; ?>>
-          <label>Category Image</label>
-          <div class="upload_preview"><?php
+          <label style="display:inline">Image</label>
+          <input type="hidden" name="category_image" class=" ntzUploadTarget" value="<?php echo $category_images[$tag->term_id]; ?>" />
+          <a title="Upload image" class="ntzUploadTrigger button" href="#">Select/Upload Image</a>
+          <div class="upload_preview category_image_preview"><?php
             if( (int) $category_images[$tag->term_id] > 0 ){
               $preview_image = $this->get_attachment( (int) $category_images[$tag->term_id], 'thumbnail' );
               echo "<img src='{$preview_image}'>";
             }
           ?></div>
-          <input type="hidden" name="category_image" class=" ntzUploadTarget" value="<?php echo $category_images[$tag->term_id]; ?>" />
-          <a title="Upload image" class="ntzUploadTrigger button" href="#">Select image for category</a>
 
         </<?php echo $content; ?>>
       </<?php echo $wrapper; ?>>
@@ -333,7 +334,7 @@ class Ntz_utils{
         </<?php echo $head; ?>>
 
         <<?php echo $content; ?>>
-          <label>Category Color</label>
+          <label style="display:inline">Color</label>
           <input type="text" name="category_color" class="ntzColorpicker" value="<?php echo $category_color[$tag->term_id]; ?>" />
         </<?php echo $content; ?>>
       </<?php echo $wrapper; ?>>
