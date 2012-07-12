@@ -99,9 +99,13 @@ class Ntz_Meta_box_builder extends Ntz_utils{
       foreach( $this->options['fields'] as $single_field ){
         $field       = null;
         $value       = get_post_meta( $post_id, $single_field['name'], true );
+
         if( !empty( $value ) && !array( $value ) ){
           $value = stripslashes( $value );
+        }else if( empty( $value ) && !empty( $single_field['value'] ) ){
+          $value = $single_field['value'];
         }
+
         $label       = "<label for='{$single_field['name']}'>{$single_field['label']}</label> ";
         $extra_attr  = '';
         if( !empty( $value ) && !is_array( $value ) ){
