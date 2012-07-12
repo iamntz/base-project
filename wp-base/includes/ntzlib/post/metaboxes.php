@@ -116,14 +116,15 @@ class Ntz_Meta_box_builder extends Ntz_utils{
           $value = $maybe_value;
         }
 
+        if( isset( $extra_attr['multiple'] ) && !empty( $extra_attr['multiple'] ) ){
+          // adding array name in case the select is multiple (array)
+          $single_field['name'] = $single_field['name'] . '[]';
+        }
+
         if( is_array( $single_field['attr'] ) && count( $single_field['attr'] ) > 0 ){
           foreach( $single_field['attr'] as $key => $attribute ){
             $extra_attr .= " {$key}='{$attribute}'";
           }
-        }
-        if( isset( $extra_attr['multiple'] ) && !empty( $extra_attr['multiple'] ) ){
-          // adding array name in case the select is multiple (array)
-          $single_field['name'] = $single_field['name'] . '[]';
         }
 
         switch( $single_field['type'] ){
