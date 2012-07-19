@@ -41,3 +41,6 @@ psd
 # build script local files
 build/buildinfo.properties
 build/config/buildinfo.properties
+
+css/screen_sass.css
+typography_test.html

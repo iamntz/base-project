@@ -1,3 +1,4 @@
+@charset "utf-8";
 /* @group ntz css reset */
 
 html, body, div, span, object, iframe,
@@ -70,18 +71,6 @@ input[type="reset"]::-moz-focus-inner {
 
 button { width: auto; overflow: visible; }
 
-
-::-moz-selection{ background: #FF5E99; color:#fff; text-shadow: none; }
-::selection { background:#FF5E99; color:#fff; text-shadow: none; } 
-a:link { -webkit-tap-highlight-color: #FF5E99; } 
-
-::-webkit-input-placeholder { color:#999; }
-input:-moz-placeholder { color:#999; }
-input[type="search"] { -webkit-appearance: textfield; }
-
-a { outline: none; color:#6c5f9e; }
-a:focus { outline:1px dotted #eee; }
-a:hover, a:focus {color:#000;}
 html { overflow-y: scroll; }
 
 /* common classes
@@ -104,11 +93,24 @@ html { overflow-y: scroll; }
 .lte7 input[type="checkbox"] { vertical-align:bottom; }
 /* @end */
 
+::-moz-selection{ background: #FF5E99; color:#fff; text-shadow: none; }
+::selection { background:#FF5E99; color:#fff; text-shadow: none; } 
+a:link { -webkit-tap-highlight-color: #FF5E99; } 
+
+::-webkit-input-placeholder { color:#999; }
+input:-moz-placeholder { color:#999; }
+input[type="search"] { -webkit-appearance: textfield; }
+
+a { outline: none; color:#6c5f9e; }
+a:focus { outline:1px dotted #eee; }
+a:hover, a:focus {color:#000;}
+
 body {
 
 }
-h1, h2, h3, h4, h5, h6 { font-weight:700;line-height:1; }
-h1, h2, h3, h4, h5, h6, p, ol, ul, dl, blockquote {margin-bottom:.8em;}
+
+h1, h2, h3, h4, h5, h6 { font-weight:700;line-height:1; margin-bottom:.5em; }
+p, ol, ul, dl, blockquote {margin-bottom:1em;}
 
 h1 { font-size:1.6em; }
 h2 { font-size:1.5em; }
