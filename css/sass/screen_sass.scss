@@ -28,5 +28,13 @@ h6 { font-size:1em; }
   margin:0 auto;
 }
 
+.box-sized {
+  -moz-box-sizing: border-box;    ///* firefox */
+  -ms-box-sizing: border-box;     ///* ie */
+  -webkit-box-sizing: border-box; ///* webkit */
+  -khtml-box-sizing: border-box;  ///* konqueror */
+  box-sizing: border-box;         ///* css3 */
+}
+
 
 

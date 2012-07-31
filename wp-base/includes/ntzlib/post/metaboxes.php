@@ -107,6 +107,9 @@ class Ntz_Meta_box_builder extends Ntz_utils{
         }
 
         $label       = "<label for='{$single_field['name']}'>{$single_field['label']}</label> ";
+        if( empty( $single_field['label'] ) ){
+          $label = "";
+        }
         $extra_attr  = '';
         if( !empty( $value ) && !is_array( $value ) ){
           $maybe_value = unserialize( $value );
@@ -194,7 +197,18 @@ class Ntz_Meta_box_builder extends Ntz_utils{
               value=\"" . esc_attr( $value ) . "\"
               class='ntz_colorpicker' autocomplete='off' />
               ";
-          break; // default
+          break; // colorpicker
+
+          case "datepicker":
+            $date_format = ( !empty( $single_field['format'] ) ? $single_field['format'] : 'm/d/Y' );
+            $value = date( $date_format, $value);
+            $field = "
+              <input {$extra_attr} type='text' 
+              name='{$single_field['name']}' id='{$single_field['name']}' 
+              value=\"" . esc_attr( $value ) . "\"
+              class='datepicker' autocomplete='off' />
+              ";
+          break; // datepicker
 
           default: // input
             $field = "<input {$extra_attr} type='{$single_field['type']}' 
@@ -230,6 +244,8 @@ class Ntz_Meta_box_builder extends Ntz_utils{
 
             if( $single_field['type'] == 'checkbox' ){
               $update_value = isset( $update_value ) ? '1' : '0';
+            }elseif(  $single_field['type'] == 'datepicker'  ){
+              $update_value =  strtotime( $update_value );
             }else {
 
               if( $single_field['type'] == 'number' ){
