@@ -29,18 +29,19 @@ if( is_array( $ntz_lib_includes ) ){
 */
 
 class Ntz_utils{
-  protected $wpdb, $lib_path, $custom_taxonomy_prefix;
-  function __construct( $init = true ){
+  protected $wpdb, $lib_path, $custom_taxonomy_prefix, $url_regex;
+  function __construct( $reconstruct = true ){
     global $wpdb;
     $this->wpdb = $wpdb;
     $this->path = THEME_PATH;
 
     $this->lib_path = $this->path.'/includes/ntzlib';
-
-    if( !$init ){
+    if( $reconstruct ){
+      $this->url_regex = '~\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))~';
+      add_action( 'wp_ajax_get_image_versions', array( &$this, 'get_image_versions' ) );
+    }else {
       add_action( 'admin_init', array( &$this, 'style_and_scripts' ) );
     }
-    add_action( 'wp_ajax_get_image_versions', array( &$this, 'get_image_versions' ) );
   }
 
   /**
