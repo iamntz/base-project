@@ -39,8 +39,9 @@ class Ntz_utils{
     if( $reconstruct ){
       $this->url_regex = '~\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))~';
       add_action( 'wp_ajax_get_image_versions', array( &$this, 'get_image_versions' ) );
-    }else {
       add_action( 'admin_init', array( &$this, 'style_and_scripts' ) );
+    }else {
+
     }
   }
 
