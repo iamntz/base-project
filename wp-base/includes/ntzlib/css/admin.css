@@ -51,3 +51,16 @@
   width:100px;
   cursor:pointer;
 }
+
+.uploadTrigger .remove,
+.ntzUploadTrigger .remove,
+.hasImage .uploadTrigger .add,
+.hasImage .ntzUploadTrigger .add {
+  display:none;
+}
+.hasImage .uploadTrigger .remove,
+.hasImage .ntzUploadTrigger .remove,
+.uploadTrigger .add,
+.ntzUploadTrigger .add {
+  display:inline;
+}

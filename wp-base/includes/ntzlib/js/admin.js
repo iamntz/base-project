@@ -28,18 +28,35 @@ jQuery(document).ready(function($){
   });
 
 
-  $( '.upload_preview' ).live('dblclick', function(){
+  $( '.upload_preview' ).live('dblclick removeImage', function(){
     var t = $(this);
     if( confirm( "Remove Image?" ) ){
       t.empty();
       t.parent().find('.ntzUploadTarget').val('');
+      t.parent().removeClass('hasImage');
     }
   });
 
+  /* Usage: 
+  <p> <!-- can be any element -->
+    <!-- 
+      add this in functions.php: 
+      add_image_size( 'img-upload-preview', 180, 120, true );  
+    -->
+    <span class="upload_preview" data-imgsize="img-upload-preview"></span> 
+    <input type="hidden" name="img_id" value="" class="ntzUploadTarget" />
+    <button class="button-secondary uploadTrigger"><span class="add">Add</span><span class="remove">Remove</span> Image</button>
+  </p>
+   */
   $('.uploadTrigger, .ntzUploadTrigger').live('click', function(){
     var t = $(this),
         p = t.parent(),
         target = $('.ntzUploadTarget', p);
+
+    if( p.hasClass('hasImage') ){
+      $('.upload_preview', p).trigger('removeImage');
+      return false;
+    }
 
       var oldSendToEditor = window.send_to_editor;
 
@@ -88,6 +105,7 @@ jQuery(document).ready(function($){
         }, function(json){
           var img_size = $( '.upload_preview', p ).data('imgsize') || 'thumbnail';
           $( '.upload_preview', p ).empty().append( json[img_size] );
+          p.addClass('hasImage');
         } );
 
       };
