@@ -27,6 +27,17 @@ jQuery(document).ready(function($){
     
   });
 
+/* Usage: 
+  <p> <!-- can be any element -->
+    <!-- 
+      add this in functions.php: 
+      add_image_size( 'img-upload-preview', WIDTH, HEIGHT, true );  
+    -->
+    <span class="upload_preview" data-imgsize="img-upload-preview"></span> 
+    <input type="hidden" name="img_id" value="" class="ntzUploadTarget" />
+    <button class="button-secondary uploadTrigger"><span class="add">Add</span><span class="remove">Remove</span> Image</button>
+  </p>
+*/
 
   $( '.upload_preview' ).live('dblclick removeImage', function(){
     var t = $(this);
@@ -37,17 +48,20 @@ jQuery(document).ready(function($){
     }
   });
 
-  /* Usage: 
-  <p> <!-- can be any element -->
-    <!-- 
-      add this in functions.php: 
-      add_image_size( 'img-upload-preview', 180, 120, true );  
-    -->
-    <span class="upload_preview" data-imgsize="img-upload-preview"></span> 
-    <input type="hidden" name="img_id" value="" class="ntzUploadTarget" />
-    <button class="button-secondary uploadTrigger"><span class="add">Add</span><span class="remove">Remove</span> Image</button>
-  </p>
-   */
+  $('.ntzUploadTarget').on('show_preview', function(){
+    var t = $(this),
+        p = t.parent();
+
+    $.getJSON( ajaxurl, {
+      action : 'get_image_versions',
+      img_id : t.val()
+    }, function(json){
+      var img_size = $( '.upload_preview', p ).data('imgsize') || 'thumbnail';
+      $( '.upload_preview', p ).empty().append( json[img_size] );
+      p.addClass('hasImage');
+    } );
+  });
+
   $('.uploadTrigger, .ntzUploadTrigger').live('click', function(){
     var t = $(this),
         p = t.parent(),
@@ -98,17 +112,9 @@ jQuery(document).ready(function($){
         if(typeof(oldSendToEditor)=='function') { 
           window.send_to_editor = oldSendToEditor;
         }
-
-        $.getJSON( ajaxurl, {
-          action : 'get_image_versions',
-          img_id : ntzUploadTargetId.val()
-        }, function(json){
-          var img_size = $( '.upload_preview', p ).data('imgsize') || 'thumbnail';
-          $( '.upload_preview', p ).empty().append( json[img_size] );
-          p.addClass('hasImage');
-        } );
-
+        ntzUploadTargetId.trigger('show_preview');
       };
+
       tb_show('Upload file', 'media-upload.php?type=image&amp;TB_iframe=true&amp;width=640&amp;height=600');
 
     return false;
