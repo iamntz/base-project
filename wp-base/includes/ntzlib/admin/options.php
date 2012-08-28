@@ -19,7 +19,7 @@ class Admin_options extends Ntz_settings{
 
     // main menu entry
     add_menu_page( 'Site Settings', 'Site Settings', 'edit_themes', 'menu_id', 
-      array( &$this, 'settings_main' ), PATH.'/images/settings_logo.png' ); // 16x16px image
+      array( &$this, 'settings_main' ), THEME_PATH.'/i/settings_logo.png' ); // 16x16px image
       
       // submenus
       add_submenu_page( 'menu_id', 'Social Networks', 'Social Networks', 'edit_themes', 
@@ -154,8 +154,7 @@ class Ntz_settings extends Ntz_utils{
    *         @param string $option[section_name] the name of the group name (setted on class init)
    *         @param array $option[fields] fields for settings. The structure is:
    *                                      @param string $fields['label'] the text that is near the form field
-   *                                      @param string $fields['type'] what kind of form field is this? 
-   *                                             right now only text and page selector are supported
+   *                                      @param string $fields['type'] what kind of form field is this?
    *                                      @param string $field['name'] the name of the form element
    * @todo  add color picker
    * @todo  add datepicker
@@ -167,6 +166,7 @@ class Ntz_settings extends Ntz_utils{
       "title"         => "",
       "section_name"  => "",
       "before_fields" => null,
+      "intro_text"    => null,
       "after_fields"  => null,
       "fields"        => array()
     ), $options );
@@ -182,6 +182,10 @@ class Ntz_settings extends Ntz_utils{
         settings_fields( $this->options['group'] );
 
         $stored_options = get_option( $this->options['name'] );
+
+        if( !empty( $options['intro_text'] ) ){
+          echo wpautop( $options['intro_text'] );
+        }
 
         if( $options['before_fields'] ){
           do_action( $options['before_fields'] );
@@ -297,7 +301,7 @@ class Ntz_settings extends Ntz_utils{
    * @param  string  $default_text the default text of the select box.
    * @return string
    */
-  public function list_pages( $select_name = null, $value = 0, $default_text = ' -- Select an Option --' ){
+  public function list_pages( $select_name = null, $value = 0, $default_text = ' -- Select a Page --' ){
     if( !$select_name ){ return; }
     $all_pages = get_pages( 0 );
     $ret       = '<select name="' . $select_name . '" id="' . $select_name . '"><option>' . $default_text . '</option>';

@@ -28,7 +28,7 @@ blockquote:before, blockquote:after,
 q:before, q:after { content:''; content:none; }
 
 ins { background-color:#ff9; color:#000; text-decoration:none; }
-mark { background-color:#ff9; color:#000; font-style:italic; font-weight:700; }
+mark { background-color:#ff9; color:#000; }
 
 del { text-decoration: line-through; }
 abbr[title], dfn[title] { border-bottom:1px dotted; cursor:help; }
@@ -47,7 +47,9 @@ ol { list-style-type: decimal; }
 nav ol, nav ul, nav li { margin: 0; list-style:none; } 
 
 small { font-size: 85%; }
-b, strong, th { font-weight: 700; }
+mark, b, strong, th { font-weight: 700; }
+mark, i, cite, em, var, address, dfn { font-style:italic; }
+
 td, td img { vertical-align: top; } 
 sub { vertical-align: sub; font-size: smaller; }
 sup { vertical-align: super; font-size: smaller; }

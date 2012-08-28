@@ -50,7 +50,9 @@ jQuery(document).ready(function($){
 
   $('.ntzUploadTarget').on('show_preview', function(){
     var t = $(this),
-        p = t.parent();
+        p = t.parent(),
+        img_id = t.val();
+    if( !img_id || img_id == 0 ){ return; }
 
     $.getJSON( ajaxurl, {
       action : 'get_image_versions',
