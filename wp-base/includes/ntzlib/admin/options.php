@@ -118,6 +118,8 @@ class Ntz_settings extends Ntz_utils{
   function __construct( $options = array() ){
     parent::__construct(false);
 
+    $this->current_lang = esc_attr( $_REQUEST['lang'] );
+
     $this->options = $options;
 
     if( !empty( $options ) ){
@@ -170,12 +172,11 @@ class Ntz_settings extends Ntz_utils{
       "after_fields"  => null,
       "fields"        => array()
     ), $options );
-    $lang = !empty( $_REQUEST['lang'] ) ? $_REQUEST['lang'] : 'en';
     ?>
 
   <div class="wrap">
     <h2><?php echo $options['title']; ?></h2>
-    <form action="options.php?lang=<?php echo $lang; ?>" method="post" class="ntzForm">
+    <form action="options.php?lang=<?php echo $this->current_lang; ?>" method="post" class="ntzForm">
       <table class="form-table">
       <?php 
         settings_errors();
@@ -318,7 +319,6 @@ class Ntz_settings extends Ntz_utils{
 
     public function language_selector(){
       if( function_exists( 'icl_get_languages' ) ){
-        $this->current_lang = isset( $_GET['lang'] ) ? $_GET['lang'] : 'en';
 
         $available_languages = icl_get_languages('skip_missing=0&orderby=id&order=asc');
         echo "<p class='langPickerAdmin'>";
