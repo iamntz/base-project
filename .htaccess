@@ -1,3 +1,9 @@
+# block access to some sensible files
+<Files ~ "^sftp-config.json|.gitignore|.sass-cache|.htaccess|.git">
+  Order allow,deny
+  Deny from all
+</Files>
+
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/css application/json
   AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript 

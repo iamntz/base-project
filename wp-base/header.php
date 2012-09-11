@@ -29,34 +29,25 @@
     uncomment this block for native-looking app on ios devices 
     <meta name="apple-mobile-web-app-capable" content="yes"> 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  */?>
+  */ ?>
 
   <!-- !html5 elements for ie<9 -->
   <!--[if lte IE 8 ]> <script type="text/javascript">var htmlForIe = ["abbr" ,"article" ,"aside" ,"audio" ,"canvas" ,"details" ,"figcaption" ,"figure" ,"footer" ,"header" ,"hgroup" ,"mark" ,"meter" ,"nav" ,"output" ,"progress" ,"section" ,"summary" ,"time" ,"video"], htmlForIeLen = htmlForIe.length; for(i=0;i<htmlForIeLen;i++){ document.createElement(htmlForIe[i]); }</script> <![endif]-->
 
-
 <link rel="profile" href="http://gmpg.org/xfn/11">
+<?php if( WP_DEBUG ) { ?>
+  <link rel="stylesheet" type="text/css" media="all" href="<?php echo THEME_PATH ?>/css_dev/screen.css?ver=<?php echo CSS_VERSION; ?>">
+<?php } else { ?>
 <link rel="stylesheet" type="text/css" media="all" href="<?php echo THEME_PATH ?>/css/screen.css?ver=<?php echo CSS_VERSION; ?>">
+<?php } ?>
+
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
-<?php if( strlen( $ntz['social']['g_analytics'] ) > 0 ){ // displaying g.analytics before wp_head to avoid any script block ?>
-<script>
-  /* <![CDATA[ */
-    var _gaq = [['_setAccount', '<?php echo $ntz['social']['g_analytics']; ?>'], ['_trackPageview'], ['_trackPageLoadTime']];
-    (function(d, t) {
-      var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      g.async = true;
-      g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      s.parentNode.insertBefore(g, s);
-    })(document, 'script');
-  /* ]]> */
-</script>
-<?php }
+<?php 
 //if( is_singular() && get_option( 'thread_comments' ) ) { wp_enqueue_script( 'comment-reply' ); }
   wp_head();
 ?>
 </head>
-
 <body <?php body_class(); ?>>
 
 <?php 

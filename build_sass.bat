@@ -6,6 +6,7 @@ cls
 echo SASS output Style
 echo ------------------------------------------------
 echo.
+echo 0) :nested with debug on
 echo 1) :nested
 echo 2) :expanded
 echo 3) :compact
@@ -15,6 +16,10 @@ echo ------------------------------------------------
 echo.
 
 set/p nbr=Choose SASS output style 
+
+if %nbr%==0 (
+  sass --watch css/sass:css_dev --style nested --debug-info
+)
 
 if %nbr%==1 (
   sass --watch css/sass:css --style nested
