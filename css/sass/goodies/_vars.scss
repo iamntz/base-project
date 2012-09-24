@@ -7,4 +7,9 @@ $color_base_links         : blue;
 $color_base_links_hover   : black;
 
 
-$font_base : Verdana, Arial, Helvetica;
+
+$helvetica    : "Helvetica Neue", Helvetica, Arial, sans-serif;
+$georgia      : Georgia, Cambria, "Times New Roman", Times, serif;
+$lucida-grande: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+$verdana      : Verdana, Geneva, sans-serif;
+$font_base    : $verdana;
