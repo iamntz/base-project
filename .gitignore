@@ -48,4 +48,4 @@ css/screen_sass.css
 typography_test.html
 js/dist
 icons/
-css/screen.css
+css/*.css
