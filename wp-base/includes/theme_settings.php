@@ -1,80 +1,94 @@
 <?php 
+class Custom_Theme_Option extends Ntz_settings{
+  protected $main_settings, $social_settings, $home_slider, $current_lang;
+  function __construct( $reconstruct = false ){
+    parent::__construct($reconstruct);
 
-add_action( 'admin_menu', 'ntz_settings' );
-function ntz_settings(){
-  add_options_page( 'Site Settings', 'Site Settings', 'administrator', 'ntz_theme_settings', 'ntz_theme_settings' );
-}
-function ntz_theme_settings(){
-  if( isset( $_POST['ntz_do']) && $_POST['ntz_do']=='save' ){
-    foreach( $_POST as $ntz_settingsID=>$ntz_setting ){
-      $ntz_settings[$ntz_settingsID] = $ntz_setting;
-    }
-    update_option( 'ntz_settings', json_encode($ntz_settings) );
+    // if you are using wpml plugin, this is useful to have different configs based on language
+    $this->current_lang = ( defined( ICL_LANGUAGE_CODE ) ? ICL_LANGUAGE_CODE : 'en' );
+
+    add_action( 'admin_menu', array( &$this, 'add_menus' ) );
+    add_action( 'admin_init', array( &$this, 'settings_init' ) );
   }
-  ntz_custom_styles();
-  $ntz_settings = json_decode( get_option('ntz_settings') );
-  echo '<form class="wrap ntz_custom_form" method="post" action=""><h2>Site settings</h2> <input type="hidden" name="ntz_do" value="save" />';
 
-  //echo '<p><label>News Page:</label>';
-  //  echo ntz_drop_pages('news_page', $ntz_settings->news_page);
-  //echo '</p>';
-  //echo '<br/>';
+  public function add_menus(){
 
-  echo '<p><label>Google Analytics Account:</label>';
-    echo '<input type="text" name="g_analytics" value="'.$ntz_settings->g_analytics.'" id="g_analytics" />';
-  echo '</p>';
-  
-  echo '<p><label>Twitter Account:</label>';
-    echo '<input type="text" name="twitter_user" value="'.$ntz_settings->twitter_user.'" id="twitter_user" />';
-  echo '</p>';
-  
-  echo '<p><input type="submit" value="Save Settings" accesskey="s" class="button-primary" name="submit"></p>';
-  echo '</form>';
-}
-function ntz_drop_pages( $select_name, $value=null, $defaultText = '------------' ){
-  $all_pages = get_pages(0);
-  $ret = '<select name="'.$select_name.'" id="'.$select_name.'"><option>'.$default.'</option>';
-  foreach( $all_pages as $single_page ){
-    $is_selected = ( $single_page->ID == $value ) ? ' selected="selected"' : '';
-    $ret .= '<option value="'.$single_page->ID.'"'.$is_selected.'>'.$single_page->post_title.'</option>';
-  }
-  $ret .= '</select>';
-  return $ret;
+    // main menu entry
+    add_menu_page( 'Site Settings', 'Site Settings', 'edit_themes', 'menu_id', 
+      array( &$this, 'settings_main' ), PATH.'/images/settings_logo.png' ); // 16x16px image
+      
+      // submenus
+      add_submenu_page( 'menu_id', 'Analytics & Social Networks', 'Analytics & Social Networks', 'edit_themes', 
+      'settings_social_networks', array( &$this, 'settings_social_networks' ) );
+  } // add_menus
+
+  public function settings_init(){
+
+    $this->social_settings = new Ntz_settings(array(
+      "group" => "ntz_settings_social_".$this->current_lang,
+      "name"  => "ntz_settings_social_".$this->current_lang,
+      "save"  => null
+    ));
+
+    $this->general_settings = new Ntz_settings(array(
+      "group" => "ntz_settings_general_".$this->current_lang,
+      "name"  => "ntz_settings_general_".$this->current_lang,
+      "save"  => null
+    ));
+
+  } // settings_init
+
+  public function settings_main(){
+    add_action( 'language_selector', array( &$this, 'language_selector' ) );
+    $this->general_settings->form_builder(array(
+      "title"         => "Pages",
+      "section_name"  => "ntz_settings_general_{$this->current_lang}",
+      "before_fields" => 'language_selector',
+      "fields"        => array(
+        array(
+          "label" => "Sample Page",
+          "type"  => "page_selector",
+          "name"  => "sample_page",
+          "desc"  => "Lorem ipsum"
+        ),
+        array(
+          "label" => "Sample field",
+          "type"  => "text",
+          "name"  => "sample_field",
+          "attr"  => array(
+            "placeholder" => "Sample Field"
+          )
+        )
+      )
+    ));
+  } // settings_main
+
+  public function settings_social_networks(){
+    $this->social_settings->form_builder(array(
+      "title"         => "Analytics & Social Networks",
+      "section_name"  => "ntz_settings_social_{$this->current_lang}",
+      "fields"        => array(
+        array(
+          "label" => "Google Analytics Tracking Code",
+          "type"  => "text",
+          "name"  => "g_analytics",
+          "attr" => array(
+            "placeholder" => "UA-XXXX-X"
+          )
+        ),
+        array(
+          "label" => "Twitter URL",
+          "type"  => "text",
+          "name"  => "twitter"
+        ),
+        array(
+          "label" => "Facebook URL",
+          "type"  => "text",
+          "name"  => "facebook"
+        )
+      )
+    ));
+  } // settings_social_networks
 }
 
-function ntz_drop_articles( $options=array( 'select_name', 'value'=>null, 'post_type'=>'Any' ) ){
-  $ret = '<select name="'.$options['select_name'].'" id="'.$options['select_name'].'"><option>------------</option>';
-  $all_articles = new WP_Query();
-  $all_articles->query( 'showposts=9999&post_type='.$options['post_type'] );
-  global $post;
-  while ( $all_articles->have_posts() ){ $all_articles->the_post();
-    $is_selected = ($post->ID == $options['value']) ? ' selected="selected"' : '';
-    $ret .= '<option value="'.$post->ID.'"'.$is_selected.'>'.$post->post_title.'</option>';
-  }
-  $ret .= '</select>';
-  return $ret;  
-}
-
-function ntz_custom_styles(){
-  ?>
-  <style type="text/css" media="screen">
-    .customTaxonomies fieldset {}
-      .ntz_custom_form h6 { font-size:16px;font-weight:100; }
-      .ntz_custom_form p { line-height:24px;overflow:hidden; }
-      .ntz_custom_form label { float:left;width:300px;text-align:right;margin-right:15px; }
-      .ntz_custom_form .text { width:500px; }
-      .ntz_custom_form h2 { margin-bottom:20px; }
-      .ntz_custom_form fieldset .button-primary { visibility:hidden;position:relative;top:-1px; }
-      .ntz_custom_form fieldset p:hover .button-primary { visibility:visible; }
-      .ntz_custom_form textarea { width:500px; }
-      .ntz_custom_form textarea[name="home_page_slider"] {
-        display:block;
-        width:100%;
-        height:450px;
-      }
-      .ntz_custom_form small { display:block; }
-      .ntz_custom_form input[type="text"],
-      .ntz_custom_form select { width:300px; }
-  </style>
-  <?php 
-}
+$ntz_settings = new Custom_Theme_Option();

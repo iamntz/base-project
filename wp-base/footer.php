@@ -4,7 +4,7 @@
 
 <?php wp_footer(); ?>
 <!--[if lte IE 8]>
-  <script src="<?php echo PATH;?>/js/lib/selectivizr.js" type="text/javascript" charset="utf-8"></script>
+  <script src="<?php echo THEME_PATH;?>/js/lib/selectivizr.js" type="text/javascript" charset="utf-8"></script>
 <![endif]-->
 <?php if( is_user_logged_in() && current_user_can( 'update_core' ) ) { ?> 
   <script>

@@ -11,12 +11,11 @@ echo ------------------------------------------------
 echo.
 echo 1) Create Static Project
 echo 2) Create WordPress Project
-REM echo 3) Exit
 echo.
 echo ------------------------------------------------
 echo.
 
-set/p nbr=Choose your destiny: 
+set/p nbr=Choose Project Type: 
 
 if %nbr%==1 (
 set redirect=new_static
@@ -84,6 +83,10 @@ rm latest.tar.gz
 
 mkdir %theme_directory%
 
+mkdir %theme_directory%\i
+mkdir %theme_directory%\resources
+mkdir %theme_directory%\psd
+
 xcopy %template_folder%\* %theme_directory%\ /e
 rm -rf tmp
 
@@ -93,6 +96,60 @@ xcopy wp-base\* . /e
 
 rm -rf wp-base
 del basefile.php
+
+
+mkdir plugins
+cd plugins
+
+cls
+echo. installing plugins
+
+svn checkout http://plugins.svn.wordpress.org/wordpress-seo/trunk/ wordpress-seo
+cd wordpress-seo
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/wp-pagenavi/trunk/ wp-pagenavi
+cd wp-pagenavi
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/contact-form-7/trunk/ contact-form-7
+cd contact-form-7
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/custom-post-type-archives/trunk/ custom-post-type-archives
+cd custom-post-type-archives
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/regenerate-thumbnails/trunk/ regenerate-thumbnails
+cd regenerate-thumbnails
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/wp-maintenance-mode/trunk/ wp-maintenance-mode
+cd wp-maintenance-mode
+rm -rf .svn
+cd ..
+
+svn checkout http://plugins.svn.wordpress.org/w3-total-cache/trunk/ w3-total-cache
+cd w3-total-cache
+rm -rf .svn
+cd ..
+
+
+svn checkout http://plugins.svn.wordpress.org/backwpup/trunk/ backwpup
+cd backwpup
+rm -rf .svn
+cd ..
+
+REM svn checkout http://plugins.svn.wordpress.org/jetpack/trunk/ jetpack
+REM cd jetpack
+REM rm -rf .svn
+REM cd ..
+
 
 
 cls
@@ -116,9 +173,9 @@ echo Downloading latest version of base project
 echo ------------------------------------------------
 echo.
 
-curl -O https://nodeload.github.com/iamntz/base-project/zipball/master
-unzip -u master
-rm master
+curl -O https://github.com/iamntz/base-project/archive/master.zip
+unzip -u v2
+rm v2
 
 mv * baseproject
 set template_folder=%PWD%\tmp\baseproject
@@ -135,6 +192,7 @@ cd %PWD%
 
 if exist %template_folder%\i.bash rm %template_folder%\i.bash
 if exist %template_folder%\i.bat rm %template_folder%\i.bat
+if exist %template_folder%\new_file.bat rm %template_folder%\new_file.bat
 if exist %template_folder%\readme.md rm %template_folder%\readme.md
 
 GOTO %redirect%

@@ -1,0 +1,66 @@
+.ntz_meta_row {
+  margin-bottom:10px;
+  border-bottom:1px solid #ddd;
+  padding-bottom:10px;
+}
+  .ntz_meta_row label {
+    display:inline-block;
+    margin:5px 0;
+  }
+  .ntz_meta_row .upload_preview,
+  .ntz_meta_row .uploadTrigger  {
+    display:block;
+    text-align:center;
+    margin:10px 0;
+  }
+
+.ntzRestoreDefault {
+  text-decoration:none;
+  font-weight:700;
+  font-size:18px;
+  color:#999;
+  display:inline-block;
+  vertical-align:middle;
+  margin-left:5px;
+}
+.ntzRestoreDefault:hover {
+  color:#c00;
+}
+
+.ntzForm {
+
+} 
+  .ntzForm textarea {
+    width:25em;
+    height:10em;
+  }
+  .ntzForm .upload_preview {
+    display:inline-block;
+    vertical-align:middle;
+    margin-left:10px;
+  }
+  .ntzForm .info {
+    width:600px;
+  }
+.category_image_preview {
+  margin-top:10px;
+}
+
+.form-field .ntzColorpicker,
+.ntzColorpicker {
+  width:100px;
+  cursor:pointer;
+}
+
+.uploadTrigger .remove,
+.ntzUploadTrigger .remove,
+.hasImage .uploadTrigger .add,
+.hasImage .ntzUploadTrigger .add {
+  display:none;
+}
+.hasImage .uploadTrigger .remove,
+.hasImage .ntzUploadTrigger .remove,
+.uploadTrigger .add,
+.ntzUploadTrigger .add {
+  display:inline;
+}

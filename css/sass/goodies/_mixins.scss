@@ -1,0 +1,23 @@
+@mixin opacity( $amount ){
+  filter:alpha(opacity=$amount*100);
+  opacity:$amount;
+}
+
+@mixin radius( $amount ){
+  border-radius:#{$amount};
+}
+
+@mixin vertical_gradient( $start_color, $end_color ){
+  background: $start_color;
+  background: -moz-linear-gradient(top,  $start_color 0%, $end_color 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$start_color), color-stop(100%,$end_color));
+  background: -webkit-linear-gradient(top,  $start_color 0%,$end_color 100%);
+  background: -o-linear-gradient(top,  $start_color 0%,$end_color 100%);
+  background: -ms-linear-gradient(top,  $start_color 0%,$end_color 100%);
+  background: linear-gradient(to bottom,  $start_color 0%,$end_color 100%);
+}
+
+@mixin box_shadow( $shadow ){
+  -webkit-box-shadow:#{$shadow};
+  box-shadow:#{$shadow};
+}

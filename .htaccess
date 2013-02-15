@@ -1,54 +1,60 @@
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/plain text/css application/json
-  AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript 
-  AddOutputFilterByType DEFLATE text/xml application/xml text/x-component
+# block access to some sensible files
+<Files ~ "^sftp-config.json|.gitignore|.sass-cache|.htaccess|.git|node_modules">
+  Order allow,deny
+  Deny from all
+</Files>
 
-  <FilesMatch "\.(ttf|otf|eot|svg)$" >
-    SetOutputFilter DEFLATE
-  </FilesMatch>
-</IfModule>
+# <IfModule mod_deflate.c>
+#   AddOutputFilterByType DEFLATE text/html text/plain text/css application/json
+#   AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript 
+#   AddOutputFilterByType DEFLATE text/xml application/xml text/x-component
 
-FileETag none
+#   <FilesMatch "\.(ttf|otf|eot|svg)$" >
+#     SetOutputFilter DEFLATE
+#   </FilesMatch>
+# </IfModule>
 
-<IfModule mod_setenvif.c>
-  <IfModule mod_headers.c>
-    BrowserMatch MSIE ie
-    Header set X-UA-Compatible "IE=Edge,chrome=1" env=ie
-  </IfModule>
-</IfModule>
+# FileETag none
 
-<IfModule mod_headers.c>
-  Header append Vary User-Agent
-</IfModule>
+# <IfModule mod_setenvif.c>
+#   <IfModule mod_headers.c>
+#     BrowserMatch MSIE ie
+#     Header set X-UA-Compatible "IE=Edge,chrome=1" env=ie
+#   </IfModule>
+# </IfModule>
 
-AddDefaultCharset utf-8
-AddCharset utf-8 .html .css .js .xml .json .rss
-ServerSignature Off
+# <IfModule mod_headers.c>
+#   Header append Vary User-Agent
+# </IfModule>
 
-<FilesMatch "\.(ttf|otf|eot|woff|font.css)$">
-  <IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "*"
-  </IfModule>
-</FilesMatch>
+# AddDefaultCharset utf-8
+# AddCharset utf-8 .html .css .js .xml .json .rss
+# ServerSignature Off
+
+# <FilesMatch "\.(ttf|otf|eot|woff|font.css)$">
+#   <IfModule mod_headers.c>
+#     Header set Access-Control-Allow-Origin "*"
+#   </IfModule>
+# </FilesMatch>
 
 
-# video
-AddType video/ogg                      ogg ogv
-AddType video/mp4                      mp4
-AddType video/webm                     webm
+# # video
+# AddType video/ogg                      ogg ogv
+# AddType video/mp4                      mp4
+# AddType video/webm                     webm
 
-AddType     image/svg+xml              svg svgz 
-AddEncoding gzip                       svgz
+# AddType     image/svg+xml              svg svgz 
+# AddEncoding gzip                       svgz
 
-# webfonts                             
-AddType application/vnd.ms-fontobject  eot
-AddType font/truetype                  ttf
-AddType font/opentype                  otf
-AddType font/woff                      woff
+# # webfonts                             
+# AddType application/vnd.ms-fontobject  eot
+# AddType font/truetype                  ttf
+# AddType font/opentype                  otf
+# AddType font/woff                      woff
 
-# assorted types                                      
-AddType image/vnd.microsoft.icon       ico
-AddType image/webp                     webp
-AddType text/cache-manifest            manifest
-AddType text/x-component               htc
-AddType application/x-chrome-extension crx
+# # assorted types                                      
+# AddType image/vnd.microsoft.icon       ico
+# AddType image/webp                     webp
+# AddType text/cache-manifest            manifest
+# AddType text/x-component               htc
+# AddType application/x-chrome-extension crx

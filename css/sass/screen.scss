@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+@import "goodies/vars";
+@import "goodies/_mixins";
+@import "goodies/_reset";
+
+html {
+  font-size: 16px;
+}
+body {
+  font:62.5%/1.5 $font_base;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight:700;
+  line-height:1;
+  margin-bottom:.5em;
+}
+
+p, ol, ul, dl, blockquote {margin-bottom:1em;}
+
+h1 { font-size:2.5em; }
+h2 { font-size:2em; }
+h3 { font-size:1.8em; }
+h4 { font-size:1.5em; }
+h5 { font-size:1.3em; }
+h6 { font-size:1em; }
+
+#wrap {
+  width:980px;
+  margin:0 auto;
+}
+
+%box-sized {
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -khtml-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+

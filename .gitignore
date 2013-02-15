@@ -32,6 +32,8 @@ publish
 cache
 .idea
 psd
+.sass-cache
+*.stackdump
 
 #sublime text project files
 *.sublime-project
@@ -40,3 +42,10 @@ psd
 # build script local files
 build/buildinfo.properties
 build/config/buildinfo.properties
+
+node_modules
+css/screen_sass.css
+typography_test.html
+js/dist
+icons/
+css/screen.css
