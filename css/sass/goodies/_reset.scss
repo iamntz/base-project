@@ -46,30 +46,40 @@ ol { list-style-type: decimal; }
 
 nav ol, nav ul, nav li { margin: 0; list-style:none; } 
 
-small { font-size: 85%; }
+small { font-size: 80%; }
 mark, b, strong, th { font-weight: 700; }
 mark, i, cite, em, var, address, dfn { font-style:italic; }
 
-td, td img { vertical-align: top; } 
-sub { vertical-align: sub; font-size: smaller; }
-sup { vertical-align: super; font-size: smaller; }
-pre { padding: 15px; white-space: pre; white-space: pre-wrap; white-space: pre-line; word-wrap: break-word; }
-textarea { overflow: auto; } 
+th, td, td img { vertical-align: top; }
 
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+pre { padding: 15px; white-space: pre; white-space: pre-wrap; white-space: pre-line; word-wrap: break-word; }
+
+/* form elements */
+textarea { overflow: auto; vertical-align:top; } 
 input[type="checkbox"] { vertical-align: text-bottom; }
 input[type="radio"] { vertical-align: bottom  }
 input[type=button], input[type=submit], button { cursor: pointer; }
 button, input, select, textarea { margin: 0; outline: none; }
 
 /* fixing mozilla extra padding on buttons */
-button::-moz-focus-inner, 
-input[type="button"]::-moz-focus-inner, 
-input[type="submit"]::-moz-focus-inner, 
-input[type="reset"]::-moz-focus-inner {
-  padding: 0 !important;
-}
+  button::-moz-focus-inner, 
+  input::-moz-focus-inner { padding: 0 !important; }
 
 button { width: auto; overflow: visible; }
+
+button, input, select, textarea { font-family: inherit; font-size: 100%; margin: 0 }
+button, input { line-height: normal; }
+button, select { text-transform: none; }
+
+::-webkit-input-placeholder { color:$color_base_placeholder; }
+input:-moz-placeholder { color:$color_base_placeholder; }
+
+input[type="search"] { -webkit-appearance: textfield;-moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
+
 
 html { overflow-y: scroll; }
 
@@ -94,14 +104,10 @@ html { overflow-y: scroll; }
 .lte7 input[type="checkbox"] { vertical-align:bottom; }
 
 
-::-moz-selection{ background: $color_base_selection_bg; color:$color_base_selection_text; text-shadow: none; }
-::selection { background:$color_base_selection_bg; color:$color_base_selection_text; text-shadow: none; } 
+/*::-moz-selection{ background: $color_base_selection_bg; color:$color_base_selection_text; text-shadow: none; }*/
+/*::selection { background:$color_base_selection_bg; color:$color_base_selection_text; text-shadow: none; } */
+
 a:link { -webkit-tap-highlight-color: $color_base_selection_bg; } 
-
-::-webkit-input-placeholder { color:$color_base_placeholder; }
-input:-moz-placeholder { color:$color_base_placeholder; }
-input[type="search"] { -webkit-appearance: textfield; }
-
 a { outline: none; color:$color_base_links; }
 a:focus { outline:1px dotted #eee; }
 a:hover, a:focus {color:$color_base_links_hover;}

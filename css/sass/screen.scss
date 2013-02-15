@@ -1,5 +1,8 @@
 @charset "utf-8";
-@import "goodies/vars", "goodies/_mixins", "goodies/_reset";
+
+@import "goodies/vars";
+@import "goodies/_mixins";
+@import "goodies/_reset";
 
 html {
   font-size: 16px;
@@ -29,11 +32,11 @@ h6 { font-size:1em; }
 }
 
 %box-sized {
-  -moz-box-sizing: border-box;    ///* firefox */
-  -ms-box-sizing: border-box;     ///* ie */
-  -webkit-box-sizing: border-box; ///* webkit */
-  -khtml-box-sizing: border-box;  ///* konqueror */
-  box-sizing: border-box;         ///* css3 */
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -khtml-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 

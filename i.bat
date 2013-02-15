@@ -11,12 +11,11 @@ echo ------------------------------------------------
 echo.
 echo 1) Create Static Project
 echo 2) Create WordPress Project
-REM echo 3) Exit
 echo.
 echo ------------------------------------------------
 echo.
 
-set/p nbr=Choose your destiny: 
+set/p nbr=Choose Project Type: 
 
 if %nbr%==1 (
 set redirect=new_static
@@ -174,7 +173,7 @@ echo Downloading latest version of base project
 echo ------------------------------------------------
 echo.
 
-curl -O https://nodeload.github.com/iamntz/base-project/zipball/v2
+curl -O https://github.com/iamntz/base-project/archive/master.zip
 unzip -u v2
 rm v2
 
